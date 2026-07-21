@@ -22,6 +22,9 @@ Built for the **Stellar White Belt (Level 1)** challenge.
 - Transaction history saved to PostgreSQL (Neon) via NestJS backend
 <img width="1911" height="830" alt="splitbill3" src="https://github.com/user-attachments/assets/d0d9e543-51c7-4d06-820e-a947f344ec8e" />
 
+##Sucess Transaction
+
+<img width="1600" height="877" alt="successTR" src="https://github.com/user-attachments/assets/8308ce71-128a-4d33-aedb-a814bcccaabc" />
 
 
 ## Tech Stack
@@ -100,6 +103,17 @@ npm run dev
 
 - **Frontend:** http://localhost:5173
 - **Backend:** http://localhost:3000
+
+##Video Demo
+
+
+
+
+
+
+
+
+
 
 ## Usage
 

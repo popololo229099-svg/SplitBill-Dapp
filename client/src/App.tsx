@@ -5,6 +5,7 @@ import BalanceDisplay from './components/BalanceDisplay';
 import SplitBillCalculator from './components/SplitBillCalculator';
 import TransactionHistory from './components/TransactionHistory';
 import LandingPage from './components/LandingPage';
+import { useIsMobile } from './hooks/useMediaQuery';
 
 const C = {
   canvasDark: '#0b0e11',
@@ -25,10 +26,13 @@ function AppContent() {
   const { isConnected } = useWallet();
   const [activeTab, setActiveTab] = useState<Tab>('split');
   const [page, setPage] = useState<'landing' | 'app'>('landing');
+  const mobile = useIsMobile();
 
   if (page === 'landing') {
     return <LandingPage onEnter={() => setPage('app')} />;
   }
+
+  const px = mobile ? '12px' : '32px';
 
   return (
     <div style={{
@@ -46,7 +50,7 @@ function AppContent() {
         zIndex: 10,
       }}>
         <div style={{
-          maxWidth: 1280, margin: '0 auto', padding: '0 32px',
+          maxWidth: 1280, margin: '0 auto', padding: `0 ${px}`,
           height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
           <div
@@ -60,14 +64,18 @@ function AppContent() {
               fontWeight: 800, fontSize: 18, letterSpacing: '-0.5px',
               padding: '2px 6px', borderRadius: 2,
             }}>SB</span>
-            <span style={{
-              fontSize: 16, fontWeight: 700, color: C.body,
-              letterSpacing: '-0.3px',
-            }}>SplitBill</span>
-            <span style={{
-              fontSize: 10, color: C.muted, marginLeft: 4,
-              background: C.surfaceCard, padding: '1px 6px', borderRadius: 2, fontWeight: 600,
-            }}>TESTNET</span>
+            {!mobile && (
+              <>
+                <span style={{
+                  fontSize: 16, fontWeight: 700, color: C.body,
+                  letterSpacing: '-0.3px',
+                }}>SplitBill</span>
+                <span style={{
+                  fontSize: 10, color: C.muted, marginLeft: 4,
+                  background: C.surfaceCard, padding: '1px 6px', borderRadius: 2, fontWeight: 600,
+                }}>TESTNET</span>
+              </>
+            )}
           </div>
           <WalletConnect />
         </div>
@@ -79,7 +87,7 @@ function AppContent() {
         borderBottom: `1px solid ${C.hairline}`,
       }}>
         <div style={{
-          maxWidth: 1280, margin: '0 auto', padding: '0 32px',
+          maxWidth: 1280, margin: '0 auto', padding: `0 ${px}`,
           display: 'flex', gap: 0,
         }}>
           {(['split', 'history'] as Tab[]).map((tab) => (
@@ -90,7 +98,7 @@ function AppContent() {
                 setActiveTab(tab);
               }}
               style={{
-                padding: '12px 16px', fontSize: 14, fontWeight: 600,
+                padding: '12px 16px', fontSize: mobile ? 13 : 14, fontWeight: 600,
                 color: activeTab === tab ? C.primary : C.muted,
                 borderBottom: activeTab === tab ? `2px solid ${C.primary}` : '2px solid transparent',
                 cursor: tab === 'history' && !isConnected ? 'not-allowed' : 'pointer',
@@ -108,21 +116,21 @@ function AppContent() {
       <main style={{
         flex: 1,
         background: C.canvasDark,
-        padding: '24px 0',
+        padding: mobile ? '16px 0' : '24px 0',
       }}>
-        <div style={{ maxWidth: 520, margin: '0 auto', padding: '0 16px' }}>
+        <div style={{ maxWidth: 520, margin: '0 auto', padding: `0 ${mobile ? 12 : 16}px` }}>
           {!isConnected && (
             <div style={{
               background: C.surfaceCard,
               border: `1px solid ${C.hairline}`,
               borderRadius: 12,
-              padding: '48px 24px',
+              padding: mobile ? '32px 16px' : '48px 24px',
               textAlign: 'center',
-              marginTop: 24,
+              marginTop: mobile ? 12 : 24,
             }}>
               <div style={{ fontSize: 32, marginBottom: 16 }}>💸</div>
               <h2 style={{
-                fontSize: 20, fontWeight: 600, color: C.body,
+                fontSize: mobile ? 18 : 20, fontWeight: 600, color: C.body,
                 marginBottom: 8,
               }}>
                 Split bills with anyone
@@ -146,7 +154,7 @@ function AppContent() {
                 background: C.surfaceCard,
                 border: `1px solid ${C.hairline}`,
                 borderRadius: 12,
-                padding: 24,
+                padding: mobile ? 16 : 24,
               }}>
                 <SplitBillCalculator />
               </div>
@@ -158,7 +166,7 @@ function AppContent() {
               background: C.surfaceCard,
               border: `1px solid ${C.hairline}`,
               borderRadius: 12,
-              padding: 24,
+              padding: mobile ? 16 : 24,
             }}>
               <TransactionHistory />
             </div>
@@ -170,15 +178,17 @@ function AppContent() {
       <footer style={{
         background: C.canvasDark,
         borderTop: `1px solid ${C.hairline}`,
-        padding: '32px 32px',
+        padding: mobile ? '24px 12px' : '32px 32px',
       }}>
         <div style={{
           maxWidth: 1280, margin: '0 auto',
-          display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
-          flexWrap: 'wrap', gap: 32,
+          display: 'flex', flexDirection: mobile ? 'column' : 'row',
+          justifyContent: 'space-between', alignItems: mobile ? 'flex-start' : 'flex-start',
+          gap: mobile ? 24 : 32,
+          flexWrap: 'wrap',
         }}>
           {/* Brand */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, minWidth: 180 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, minWidth: mobile ? 0 : 180 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{
                 background: C.primary, color: '#181a20',
@@ -192,7 +202,10 @@ function AppContent() {
           </div>
 
           {/* Links */}
-          <div style={{ display: 'flex', gap: 48, flexWrap: 'wrap' }}>
+          <div style={{
+            display: 'flex', gap: mobile ? 32 : 48, flexWrap: 'wrap',
+            flexDirection: mobile ? 'column' : 'row',
+          }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               <span style={{ fontSize: 12, fontWeight: 600, color: C.mutedStrong, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Product</span>
               <a href="#" onClick={(e) => { e.preventDefault(); setActiveTab('split'); }} style={{ fontSize: 13, color: C.muted, textDecoration: 'none', cursor: 'pointer' }}>Split Bill</a>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useIsMobile } from '../hooks/useMediaQuery';
 
 const C = {
   canvasDark: '#0b0e11',
@@ -41,6 +42,7 @@ export default function LandingPage({ onEnter }: Props) {
   const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
   const [hoveredCta, setHoveredCta] = useState(false);
   const [visible, setVisible] = useState(false);
+  const mobile = useIsMobile();
 
   useEffect(() => {
     setVisible(true);
@@ -62,6 +64,8 @@ export default function LandingPage({ onEnter }: Props) {
     { num: '03', title: 'Confirm & Send', desc: 'Review the split, sign in Freighter, and payments are sent instantly.' },
   ];
 
+  const px = mobile ? '16px' : '32px';
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -80,7 +84,7 @@ export default function LandingPage({ onEnter }: Props) {
         height: 64, display: 'flex', alignItems: 'center',
       }}>
         <div style={{
-          maxWidth: 1280, width: '100%', margin: '0 auto', padding: '0 32px',
+          maxWidth: 1280, width: '100%', margin: '0 auto', padding: `0 ${px}`,
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -89,40 +93,45 @@ export default function LandingPage({ onEnter }: Props) {
               fontWeight: 800, fontSize: 18, letterSpacing: '-0.5px',
               padding: '2px 6px', borderRadius: 2,
             }}>SB</span>
-            <span style={{
-              fontSize: 16, fontWeight: 700, color: C.body, letterSpacing: '-0.3px',
-            }}>SplitBill</span>
-            <span style={{
-              fontSize: 10, color: C.muted, marginLeft: 4,
-              background: C.surfaceCard, padding: '1px 6px', borderRadius: 2, fontWeight: 600,
-            }}>TESTNET</span>
+            {!mobile && (
+              <>
+                <span style={{
+                  fontSize: 16, fontWeight: 700, color: C.body, letterSpacing: '-0.3px',
+                }}>SplitBill</span>
+                <span style={{
+                  fontSize: 10, color: C.muted, marginLeft: 4,
+                  background: C.surfaceCard, padding: '1px 6px', borderRadius: 2, fontWeight: 600,
+                }}>TESTNET</span>
+              </>
+            )}
           </div>
           <button
             onClick={onEnter}
             style={{
               background: C.primary, color: '#181a20', border: 'none',
-              borderRadius: 6, padding: '8px 20px', fontSize: 14, fontWeight: 600,
+              borderRadius: 6, padding: mobile ? '8px 14px' : '8px 20px',
+              fontSize: mobile ? 13 : 14, fontWeight: 600,
               cursor: 'pointer',
             }}
-          >Launch App</button>
+          >{mobile ? 'Launch' : 'Launch App'}</button>
         </div>
       </nav>
 
-      {/* Hero — hero-band-dark */}
+      {/* Hero */}
       <section style={{
-        paddingTop: 144, paddingBottom: 80, padding: '144px 32px 80px',
+        padding: `${mobile ? '120px' : '144px'} ${px} 80px`,
         maxWidth: 1280, margin: '0 auto', textAlign: 'center',
       }}>
         <div style={{
           display: 'inline-block',
           background: C.surfaceCard, border: `1px solid ${C.hairline}`,
           borderRadius: 9999, padding: '6px 16px', marginBottom: 32,
-          fontSize: 13, color: C.muted, fontWeight: 500,
+          fontSize: mobile ? 12 : 13, color: C.muted, fontWeight: 500,
         }}>
           Powered by <span style={{ color: C.primary, fontWeight: 600 }}>Stellar</span> Testnet
         </div>
         <h1 style={{
-          fontSize: 64, fontWeight: 700, color: C.body, lineHeight: 1.1,
+          fontSize: mobile ? 36 : 64, fontWeight: 700, color: C.body, lineHeight: 1.1,
           letterSpacing: '-1px', margin: '0 0 20px', maxWidth: 800,
           marginLeft: 'auto', marginRight: 'auto',
         }}>
@@ -131,13 +140,13 @@ export default function LandingPage({ onEnter }: Props) {
           <br />instantly.
         </h1>
         <p style={{
-          fontSize: 18, color: C.muted, lineHeight: 1.6,
+          fontSize: mobile ? 15 : 18, color: C.muted, lineHeight: 1.6,
           maxWidth: 560, margin: '0 auto 40px',
         }}>
           Connect your Freighter wallet, divide any bill among friends,
           and send XLM on Stellar — all in under 5 seconds.
         </p>
-        <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <button
             onClick={onEnter}
             onMouseEnter={() => setHoveredCta(true)}
@@ -145,7 +154,8 @@ export default function LandingPage({ onEnter }: Props) {
             style={{
               background: hoveredCta ? C.primaryActive : C.primary,
               color: '#181a20', border: 'none', borderRadius: 9999,
-              padding: '14px 32px', fontSize: 14, fontWeight: 600,
+              padding: mobile ? '12px 24px' : '14px 32px',
+              fontSize: mobile ? 13 : 14, fontWeight: 600,
               cursor: 'pointer', transition: 'background 0.15s',
             }}
           >Get Started</button>
@@ -155,22 +165,24 @@ export default function LandingPage({ onEnter }: Props) {
             style={{
               background: C.surfaceCard, color: C.body,
               border: `1px solid ${C.hairline}`, borderRadius: 6,
-              padding: '14px 24px', fontSize: 14, fontWeight: 600,
+              padding: mobile ? '12px 20px' : '14px 24px',
+              fontSize: mobile ? 13 : 14, fontWeight: 600,
               cursor: 'pointer', textDecoration: 'none', display: 'inline-block',
             }}
           >View on GitHub</a>
         </div>
       </section>
 
-      {/* Stats — stat-callout-card */}
+      {/* Stats */}
       <section style={{
         borderTop: `1px solid ${C.hairline}`,
         borderBottom: `1px solid ${C.hairline}`,
-        padding: '48px 32px',
+        padding: `${mobile ? 32 : 48}px ${px}`,
       }}>
         <div style={{
           maxWidth: 1280, margin: '0 auto',
-          display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: 32,
+          display: 'grid', gridTemplateColumns: mobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+          gap: mobile ? 24 : 32,
         }}>
           {[
             { value: users.toLocaleString(), label: 'Users on Stellar' },
@@ -180,23 +192,23 @@ export default function LandingPage({ onEnter }: Props) {
           ].map((stat, i) => (
             <div key={i} style={{ textAlign: 'center' }}>
               <div style={{
-                fontSize: 40, fontWeight: 700, color: C.primary,
+                fontSize: mobile ? 28 : 40, fontWeight: 700, color: C.primary,
                 letterSpacing: '-0.3px', lineHeight: 1.1,
               }}>{stat.value}</div>
               <div style={{
-                fontSize: 13, color: C.muted, marginTop: 4, fontWeight: 500,
+                fontSize: mobile ? 11 : 13, color: C.muted, marginTop: 4, fontWeight: 500,
               }}>{stat.label}</div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Features — trust-badge cards */}
-      <section style={{ padding: '80px 32px' }}>
+      {/* Features */}
+      <section style={{ padding: `${mobile ? 48 : 80}px ${px}` }}>
         <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 48 }}>
+          <div style={{ textAlign: 'center', marginBottom: mobile ? 32 : 48 }}>
             <h2 style={{
-              fontSize: 40, fontWeight: 600, color: C.body,
+              fontSize: mobile ? 28 : 40, fontWeight: 600, color: C.body,
               letterSpacing: '-0.3px', margin: '0 0 12px',
             }}>Why SplitBill?</h2>
             <p style={{ fontSize: 14, color: C.muted, maxWidth: 480, margin: '0 auto' }}>
@@ -204,7 +216,8 @@ export default function LandingPage({ onEnter }: Props) {
             </p>
           </div>
           <div style={{
-            display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24,
+            display: 'grid', gridTemplateColumns: mobile ? '1fr' : 'repeat(auto-fit, minmax(260px, 1fr))',
+            gap: 16,
           }}>
             {features.map((f, i) => (
               <div
@@ -214,7 +227,7 @@ export default function LandingPage({ onEnter }: Props) {
                 style={{
                   background: hoveredFeature === i ? C.surfaceElevated : C.surfaceCard,
                   border: `1px solid ${hoveredFeature === i ? C.primary : C.hairline}`,
-                  borderRadius: 12, padding: 24,
+                  borderRadius: 12, padding: mobile ? 20 : 24,
                   transition: 'all 0.2s ease',
                 }}
               >
@@ -227,26 +240,27 @@ export default function LandingPage({ onEnter }: Props) {
         </div>
       </section>
 
-      {/* How it works — steps-card */}
-      <section style={{ padding: '80px 32px' }}>
+      {/* How it works */}
+      <section style={{ padding: `${mobile ? 48 : 80}px ${px}` }}>
         <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 48 }}>
+          <div style={{ textAlign: 'center', marginBottom: mobile ? 32 : 48 }}>
             <h2 style={{
-              fontSize: 40, fontWeight: 600, color: C.body,
+              fontSize: mobile ? 28 : 40, fontWeight: 600, color: C.body,
               letterSpacing: '-0.3px', margin: '0 0 12px',
             }}>How it works</h2>
             <p style={{ fontSize: 14, color: C.muted }}>Three steps to split any bill.</p>
           </div>
           <div style={{
-            display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24,
+            display: 'grid', gridTemplateColumns: mobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: 16,
           }}>
             {steps.map((s, i) => (
               <div key={i} style={{
                 background: C.surfaceCard, border: `1px solid ${C.hairline}`,
-                borderRadius: 12, padding: 32, position: 'relative',
+                borderRadius: 12, padding: mobile ? 24 : 32, position: 'relative',
               }}>
                 <div style={{
-                  fontSize: 48, fontWeight: 700, color: C.surfaceElevated,
+                  fontSize: mobile ? 36 : 48, fontWeight: 700, color: C.surfaceElevated,
                   position: 'absolute', top: 16, right: 20, lineHeight: 1,
                 }}>{s.num}</div>
                 <h3 style={{
@@ -262,17 +276,19 @@ export default function LandingPage({ onEnter }: Props) {
         </div>
       </section>
 
-      {/* CTA Band — cta-band-dark */}
-      <section style={{ padding: '0 32px 80px' }}>
+      {/* CTA Band */}
+      <section style={{ padding: `0 ${px} ${mobile ? 48 : 80}px` }}>
         <div style={{
           maxWidth: 1280, margin: '0 auto',
           background: C.surfaceCard, border: `1px solid ${C.hairline}`,
-          borderRadius: 12, padding: '48px',
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          flexWrap: 'wrap', gap: 24,
+          borderRadius: 12, padding: mobile ? '24px' : '48px',
+          display: 'flex', alignItems: mobile ? 'stretch' : 'center',
+          justifyContent: 'space-between', flexDirection: mobile ? 'column' : 'row',
+          gap: 16,
         }}>
           <h2 style={{
-            fontSize: 32, fontWeight: 600, color: C.body, letterSpacing: '0', margin: 0,
+            fontSize: mobile ? 22 : 32, fontWeight: 600, color: C.body,
+            letterSpacing: '0', margin: 0,
           }}>Ready to split your first bill?</h2>
           <button
             onClick={onEnter}
@@ -280,45 +296,48 @@ export default function LandingPage({ onEnter }: Props) {
               background: C.primary, color: '#181a20', border: 'none',
               borderRadius: 6, padding: '12px 24px', fontSize: 14,
               fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap',
+              width: mobile ? '100%' : 'auto',
             }}
           >Launch App →</button>
         </div>
       </section>
 
       {/* Trust Badges */}
-      <section style={{ padding: '0 32px 80px' }}>
+      <section style={{ padding: `0 ${px} ${mobile ? 48 : 80}px` }}>
         <div style={{
           maxWidth: 1280, margin: '0 auto',
-          display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap',
+          display: 'flex', justifyContent: 'center', gap: 12, flexWrap: 'wrap',
         }}>
           {['Non-Custodial', 'Open Source', 'Stellar Testnet', 'Zero Fees'].map((badge, i) => (
             <div key={i} style={{
               background: C.surfaceCard, border: `1px solid ${C.hairline}`,
-              borderRadius: 8, padding: '12px 20px',
-              fontSize: 14, fontWeight: 600, color: C.body,
+              borderRadius: 8, padding: mobile ? '10px 16px' : '12px 20px',
+              fontSize: mobile ? 13 : 14, fontWeight: 600, color: C.body,
             }}>{badge}</div>
           ))}
         </div>
       </section>
 
-      {/* Footer — footer-light (deliberate inversion) */}
+      {/* Footer */}
       <footer style={{
-        background: '#fafafa', borderTop: `1px solid ${C.hairline}`, padding: '48px 32px',
+        background: C.canvasDark, borderTop: `1px solid ${C.hairline}`,
+        padding: mobile ? '32px 16px' : '48px 32px',
       }}>
         <div style={{
           maxWidth: 1280, margin: '0 auto',
-          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-          flexWrap: 'wrap', gap: 16,
+          display: 'flex', flexDirection: mobile ? 'column' : 'row',
+          justifyContent: 'space-between', alignItems: mobile ? 'flex-start' : 'center',
+          gap: 16,
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <span style={{
               background: C.primary, color: '#181a20',
               fontWeight: 800, fontSize: 14, padding: '2px 5px', borderRadius: 2,
             }}>SB</span>
-            <span style={{ fontSize: 14, fontWeight: 600, color: '#181a20' }}>SplitBill</span>
+            <span style={{ fontSize: 14, fontWeight: 600, color: C.body }}>SplitBill</span>
           </div>
           <div style={{ fontSize: 13, color: C.muted }}>
-            Powered by Stellar · Built for Level 1
+            Powered by Stellar &middot; Built for Level 1
           </div>
         </div>
       </footer>

@@ -49,7 +49,12 @@ function AppContent() {
           maxWidth: 1280, margin: '0 auto', padding: '0 32px',
           height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }} onClick={() => setPage('landing')}>
+          <div
+            style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}
+            onClick={() => setPage('landing')}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = '0.8'; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = '1'; }}
+          >
             <span style={{
               background: C.primary, color: '#181a20',
               fontWeight: 800, fontSize: 18, letterSpacing: '-0.5px',
@@ -161,26 +166,58 @@ function AppContent() {
         </div>
       </main>
 
-      {/* Footer — light on dark (DESIGN.md: footer-light) */}
+      {/* Footer */}
       <footer style={{
-        background: '#fafafa',
+        background: C.canvasDark,
         borderTop: `1px solid ${C.hairline}`,
-        padding: '20px 32px',
+        padding: '32px 32px',
       }}>
         <div style={{
           maxWidth: 1280, margin: '0 auto',
-          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-          flexWrap: 'wrap', gap: 12,
+          display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
+          flexWrap: 'wrap', gap: 32,
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{
-              background: C.primary, color: '#181a20',
-              fontWeight: 800, fontSize: 14, padding: '2px 5px', borderRadius: 2,
-            }}>SB</span>
-            <span style={{ fontSize: 14, fontWeight: 600, color: '#181a20' }}>SplitBill</span>
+          {/* Brand */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, minWidth: 180 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{
+                background: C.primary, color: '#181a20',
+                fontWeight: 800, fontSize: 14, padding: '2px 5px', borderRadius: 2,
+              }}>SB</span>
+              <span style={{ fontSize: 14, fontWeight: 600, color: C.body }}>SplitBill</span>
+            </div>
+            <span style={{ fontSize: 12, color: C.muted, lineHeight: 1.5 }}>
+              Split bills with anyone on the Stellar network.
+            </span>
           </div>
-          <div style={{ fontSize: 13, color: C.muted }}>
-            Powered by Stellar · Testnet
+
+          {/* Links */}
+          <div style={{ display: 'flex', gap: 48, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <span style={{ fontSize: 12, fontWeight: 600, color: C.mutedStrong, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Product</span>
+              <a href="#" onClick={(e) => { e.preventDefault(); setActiveTab('split'); }} style={{ fontSize: 13, color: C.muted, textDecoration: 'none', cursor: 'pointer' }}>Split Bill</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); if (isConnected) setActiveTab('history'); }} style={{ fontSize: 13, color: isConnected ? C.muted : C.mutedStrong, textDecoration: 'none', cursor: isConnected ? 'pointer' : 'default' }}>History</a>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <span style={{ fontSize: 12, fontWeight: 600, color: C.mutedStrong, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Resources</span>
+              <a href="https://stellar.org" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: C.muted, textDecoration: 'none' }}>Stellar</a>
+              <a href="https://www.freighter.app/" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: C.muted, textDecoration: 'none' }}>Freighter</a>
+              <a href="https://github.com/ankitapolu/xlm-payment-dapp" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: C.muted, textDecoration: 'none' }}>GitHub</a>
+            </div>
+          </div>
+
+          {/* Bottom bar */}
+          <div style={{
+            width: '100%', borderTop: `1px solid ${C.hairline}`,
+            paddingTop: 16, marginTop: 8,
+            display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8,
+          }}>
+            <span style={{ fontSize: 12, color: C.muted }}>
+              &copy; {new Date().getFullYear()} SplitBill &middot; Stellar Testnet
+            </span>
+            <span style={{ fontSize: 12, color: C.muted }}>
+              Non-custodial &middot; Open source
+            </span>
           </div>
         </div>
       </footer>

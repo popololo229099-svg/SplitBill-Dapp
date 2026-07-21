@@ -1,0 +1,25 @@
+client/src/App.tsx
+  s_afc6d31a5d29b8::t_c6f65c609f9e6a 8,29,35-36,53,67-78,90,101,119,121,127,129,133,157,169,181,185-188,191,205-208
+client/src/hooks/useMediaQuery.ts
+  s_afc6d31a5d29b8::t_1bb6e58c261d5e 1-27
+client/src/components/LandingPage.tsx
+  s_afc6d31a5d29b8::t_8b3ebdda5dc483 2,45,67-68,87,96-106,112-113,116,120,122,129,134,143,149,157-158,168-169,176,180,184-185,195,199,206-207,209,211,219-220,230,243-244,246,248,254-255,260,263,279-280,284-287,290-291,299,306,309,314-315,321,323-324,328-330,337,340
+client/src/index.css
+  s_afc6d31a5d29b8::t_ca85e1a0b91977 37-42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "84caeee75dcdd51afd99f76c3c04a05fe4da1490",
+  "prompts": {},
+  "sessions": {
+    "s_afc6d31a5d29b8": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_07c0d5e1fffeUhhASCiCmp0G3n",
+        "model": "unknown"
+      },
+      "human_author": "ankitapolu <ankita.polu@example.com>"
+    }
+  }
+}

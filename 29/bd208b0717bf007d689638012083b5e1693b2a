@@ -1,0 +1,47 @@
+server/src/app.controller.ts
+  s_afc6d31a5d29b8::t_d999caaf6b8eb0 19-36
+server/prisma/schema.prisma
+  s_afc6d31a5d29b8::t_eb8f915465a10f 1-7,19
+  s_afc6d31a5d29b8::t_92468189a2bfeb 8-10,13
+  s_afc6d31a5d29b8::t_e6e6d44c91c9e8 11-12,14-18
+client/src/components/SplitBillCalculator.tsx
+  s_afc6d31a5d29b8::t_152a647880dfdc 134-140
+  s_afc6d31a5d29b8::t_383a04258299e7 7-26
+  s_afc6d31a5d29b8::t_82422b42c9099c 120-127
+server/src/prisma.service.ts
+  s_afc6d31a5d29b8::t_5d33f5ae99b672 7,10-11
+  s_afc6d31a5d29b8::t_4370769ea578ae 2
+  s_afc6d31a5d29b8::t_a5d85c7c2a047f 3,8-9
+  s_afc6d31a5d29b8::t_7740cb3d4ff8a9 1,4-6,12-19
+.gitignore
+  s_afc6d31a5d29b8::t_a7cc531ac16111 6
+  s_afc6d31a5d29b8::t_f1938148071a12 7-10
+server/prisma.config.ts
+  s_afc6d31a5d29b8::t_eb8f915465a10f 1-14
+server/src/app.service.ts
+  s_afc6d31a5d29b8::t_27b00e34f46784 4,11-14,52-76
+server/src/app.module.ts
+  s_afc6d31a5d29b8::t_22a258681467de 5,10
+server/.gitignore
+  s_afc6d31a5d29b8::t_eb8f915465a10f 1-5
+server/package-lock.json
+  s_afc6d31a5d29b8::t_807ce738812981 16-17,19-21,34,758-785,787-789,2332-2343,2594-2959,2987-2992,3209-3286,3341-3346,3399-3404,3422-3432,3447-3456,4087-4120,4163-4303,4753-4761,4922-4927,5103-5158,5313-5318,5520-5525,5645-5777,5827-5835,5849-5863,5873-5881,5891-5896,5929-5931,5994-6003,6011-6016,6037-6045,6069-6080,6531-6580,6608-6616,6728-6741,6970-6978,7033-7038,7065-7073,7182-7193,7436-7444,7520-7525,8412-8420,8652-8657,8668-8682,9113-9144,9262-9267,9513-9623,9723-9733,9744-9795,9865-9915,10009-10041,10093-10101,10175-10198,10245-10266,10273-10278,10337-10341,10525-10533,10541-10549,10582-10587,11370,11575-11588,11884-11892,11974-11983
+server/package.json
+  s_afc6d31a5d29b8::t_3042bf9f6a6898 9,27-28,30-32,45
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "29bd208b0717bf007d689638012083b5e1693b2a",
+  "prompts": {},
+  "sessions": {
+    "s_afc6d31a5d29b8": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_07c0d5e1fffeUhhASCiCmp0G3n",
+        "model": "unknown"
+      },
+      "human_author": "ankitapolu <ankita.polu@example.com>"
+    }
+  }
+}

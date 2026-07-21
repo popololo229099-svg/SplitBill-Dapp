@@ -1,0 +1,24 @@
+client/src/components/TransactionHistory.tsx
+  s_afc6d31a5d29b8::t_f4498089b3b8e2 1-189
+client/src/App.tsx
+  s_afc6d31a5d29b8::t_c4a0c2469ae410 1,6-8,12
+  s_afc6d31a5d29b8::t_12028825be049b 66-74,77-87
+  s_afc6d31a5d29b8::t_dafa9921d91d99 128,141-149
+  s_afc6d31a5d29b8::t_7f8b0a68767df3 150-151
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "4edb193f1548a30dbbca94859c2c80d11eff6ffb",
+  "prompts": {},
+  "sessions": {
+    "s_afc6d31a5d29b8": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_07c0d5e1fffeUhhASCiCmp0G3n",
+        "model": "unknown"
+      },
+      "human_author": "ankitapolu <ankita.polu@example.com>"
+    }
+  }
+}

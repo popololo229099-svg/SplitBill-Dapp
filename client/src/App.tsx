@@ -1,10 +1,15 @@
+import { useState } from 'react';
 import { WalletProvider, useWallet } from './context/WalletContext';
 import WalletConnect from './components/WalletConnect';
 import BalanceDisplay from './components/BalanceDisplay';
 import SplitBillCalculator from './components/SplitBillCalculator';
+import TransactionHistory from './components/TransactionHistory';
+
+type Tab = 'split' | 'history';
 
 function AppContent() {
   const { isConnected } = useWallet();
+  const [activeTab, setActiveTab] = useState<Tab>('split');
 
   return (
     <div style={{
@@ -58,16 +63,28 @@ function AppContent() {
           maxWidth: 1200, margin: '0 auto', padding: '0 24px',
           display: 'flex', gap: 0,
         }}>
-          <div style={{
-            padding: '12px 16px', fontSize: 14, fontWeight: 600, color: '#f0b90b',
-            borderBottom: '2px solid #f0b90b', cursor: 'pointer',
-          }}>
+          <div
+            onClick={() => setActiveTab('split')}
+            style={{
+              padding: '12px 16px', fontSize: 14, fontWeight: 600,
+              color: activeTab === 'split' ? '#f0b90b' : '#848e9c',
+              borderBottom: activeTab === 'split' ? '2px solid #f0b90b' : '2px solid transparent',
+              cursor: 'pointer',
+            }}
+          >
             Split Bill
           </div>
-          <div style={{
-            padding: '12px 16px', fontSize: 14, fontWeight: 500, color: '#848e9c',
-            cursor: 'not-allowed', opacity: 0.5,
-          }}>
+          <div
+            onClick={() => isConnected && setActiveTab('history')}
+            style={{
+              padding: '12px 16px', fontSize: 14,
+              fontWeight: activeTab === 'history' ? 600 : 500,
+              color: activeTab === 'history' ? '#f0b90b' : '#848e9c',
+              borderBottom: activeTab === 'history' ? '2px solid #f0b90b' : '2px solid transparent',
+              cursor: isConnected ? 'pointer' : 'not-allowed',
+              opacity: isConnected ? 1 : 0.5,
+            }}
+          >
             History
           </div>
         </div>
@@ -108,7 +125,7 @@ function AppContent() {
             </div>
           )}
 
-          {isConnected && (
+          {isConnected && activeTab === 'split' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               <BalanceDisplay />
               <div style={{
@@ -119,6 +136,17 @@ function AppContent() {
               }}>
                 <SplitBillCalculator />
               </div>
+            </div>
+          )}
+
+          {isConnected && activeTab === 'history' && (
+            <div style={{
+              background: '#1e2329',
+              border: '1px solid #2b3139',
+              borderRadius: 4,
+              padding: 20,
+            }}>
+              <TransactionHistory />
             </div>
           )}
         </div>

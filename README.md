@@ -1,4 +1,4 @@
-<img width="1911" height="830" alt="splitbill3" src="https://github.com/user-attachments/assets/6b058bed-d315-47cb-871d-7d88e7545859" /># SplitBill - Stellar XLM Split Payment dApp
+
 
 A decentralized **Split Bill Calculator** built on the **Stellar testnet** with a Binance-inspired dark theme. Connect your Freighter wallet, split a bill among friends, and send XLM to multiple recipients in one seamless flow.
 

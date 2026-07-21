@@ -4,7 +4,6 @@ dist/
 *.log
 .DS_Store
 server/generated/
-server/src/generated/
 server/.agents/
 server/.claude/
 server/.windsurf/

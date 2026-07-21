@@ -1,0 +1,27 @@
+server/prisma/schema.prisma
+  s_afc6d31a5d29b8::t_71614219dfc216 3
+.gitignore
+  s_afc6d31a5d29b8::t_c449a1ee39090f 7
+server/.gitignore
+  s_afc6d31a5d29b8::t_3d07351aced80e 6
+server/src/prisma.service.ts
+  s_afc6d31a5d29b8::t_5ee372d14bf4fe 2
+server/tsconfig.build.tsbuildinfo
+  s_afc6d31a5d29b8::t_9eb7b7c2abbbf8 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "b4ec9233eb49bb2aae6cde4886fd934c7af18c23",
+  "prompts": {},
+  "sessions": {
+    "s_afc6d31a5d29b8": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_07c0d5e1fffeUhhASCiCmp0G3n",
+        "model": "unknown"
+      },
+      "human_author": "ankitapolu <ankita.polu@example.com>"
+    }
+  }
+}

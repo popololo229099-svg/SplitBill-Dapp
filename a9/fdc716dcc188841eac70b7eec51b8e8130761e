@@ -1,0 +1,23 @@
+server/prisma.config.d.ts
+  s_afc6d31a5d29b8::t_bef429e9247cc0 1-3
+server/tsconfig.build.tsbuildinfo
+  s_afc6d31a5d29b8::t_bef429e9247cc0 1
+server/prisma.config.js.map
+  s_afc6d31a5d29b8::t_6a29c47da5f466 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "a9fdc716dcc188841eac70b7eec51b8e8130761e",
+  "prompts": {},
+  "sessions": {
+    "s_afc6d31a5d29b8": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_07c0d5e1fffeUhhASCiCmp0G3n",
+        "model": "unknown"
+      },
+      "human_author": "ankitapolu <ankita.polu@example.com>"
+    }
+  }
+}

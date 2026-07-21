@@ -1,0 +1,20 @@
+client/src/App.tsx
+  s_afc6d31a5d29b8::t_e097a224d1ba61 52-57
+  s_afc6d31a5d29b8::t_104f909d161f4e 169,171,173,177-178,180-191,193-220
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "24d8313e0f9794f6af5b939bd465cb6a964b59e4",
+  "prompts": {},
+  "sessions": {
+    "s_afc6d31a5d29b8": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_07c0d5e1fffeUhhASCiCmp0G3n",
+        "model": "unknown"
+      },
+      "human_author": "ankitapolu <ankita.polu@example.com>"
+    }
+  }
+}

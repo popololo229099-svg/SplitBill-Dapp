@@ -1,0 +1,67 @@
+client/src/components/LandingPage.tsx
+  s_afc6d31a5d29b8::t_c4e56e9b14b431 1-2,4-10,13-23,26,29-31,33-52,57-67,69-73,75-78,80-87,89-92,94-95,98-102,106,108-110,112-117,119,121,123-124,128-129,131-133,135-145,147-150,152-153,155,158-160,162-164,166,169-182,184-186,188-193,195-198,200-201,203-206,208-214,217-221,224-229,231-234,236-237,239-240,242-244,246-248,251-252,254-256,258-264,266-268,271-274,277-279,283,285-295,297,300-303,305,307-314,316-317,319,321-327
+  s_afc6d31a5d29b8::t_adb5486477fc2d 3,11-12,24-25,27-28,32,53-56,68,74,79,88,93,96-97,103-105,107,111,118,120,122,125-127,130,134,146,151,154,156-157,161,165,167-168,183,187,194,199,202,207,215-216,222-223,230,235,238,241,245,249-250,253,257,265,269-270,275-276,280-282,284,296,298-299,304,306,315,318,320
+client/src/App.tsx
+  s_afc6d31a5d29b8::t_bf557d71c2c4b9 7-20,27-31,38,40,42-43,49-50,52,54,57,59,61,63-65,73-74,77,80-98,105,111-113,120,126,141-144,153-156,164,166-168,170-185
+client/src/components/SplitBillCalculator.tsx
+  s_afc6d31a5d29b8::t_98afcd85433a8e 377,379,388
+  s_afc6d31a5d29b8::t_b2588bc91369e0 362
+  s_afc6d31a5d29b8::t_5be7bcc95c1b04 185
+  s_afc6d31a5d29b8::t_eb48622173b154 196
+  s_afc6d31a5d29b8::t_b5dd3fe2b60ca7 348,350,354
+  s_afc6d31a5d29b8::t_f5f41178b73c46 164
+  s_afc6d31a5d29b8::t_0b4ed8efba7395 188,205,244,294,304,307,320
+  s_afc6d31a5d29b8::t_c1b6d9b87ec922 275
+  s_afc6d31a5d29b8::t_74e760c81afd47 366
+  s_afc6d31a5d29b8::t_d2aed5d02249f5 422
+  s_afc6d31a5d29b8::t_beffa55d5abecb 429,431
+  s_afc6d31a5d29b8::t_dbff8225fe170e 172
+  s_afc6d31a5d29b8::t_abb64dfdba6176 289
+  s_afc6d31a5d29b8::t_05b3ef29dd4794 314,317
+  s_afc6d31a5d29b8::t_620dd4edd9f986 358
+  s_afc6d31a5d29b8::t_9a2cd80026f81a 340
+  s_afc6d31a5d29b8::t_bbf0801eda57e1 261
+  s_afc6d31a5d29b8::t_33c1c2c7629432 153
+  s_afc6d31a5d29b8::t_87da3e4a34262d 416
+  s_afc6d31a5d29b8::t_3455926f4018ea 456
+client/src/components/WalletConnect.tsx
+  s_afc6d31a5d29b8::t_817820c8c5a684 18
+  s_afc6d31a5d29b8::t_295c511e9c68b3 63
+  s_afc6d31a5d29b8::t_869a42193c2d4d 33
+  s_afc6d31a5d29b8::t_7dfa958648a8f9 42
+  s_afc6d31a5d29b8::t_00db3357bf3213 54
+  s_afc6d31a5d29b8::t_1c72780aed256a 53
+client/src/index.css
+  s_afc6d31a5d29b8::t_7890949ad534c2 8,13,25-26,32-35
+  s_afc6d31a5d29b8::t_f5a5f823e6ca18 36
+client/src/components/TransactionHistory.tsx
+  s_afc6d31a5d29b8::t_acaa0040645c51 62
+  s_afc6d31a5d29b8::t_cc031ec9911039 104,107
+  s_afc6d31a5d29b8::t_f630c22df71b9f 115
+  s_afc6d31a5d29b8::t_999093f64bdab9 119
+  s_afc6d31a5d29b8::t_b4a97db2947cbe 146
+  s_afc6d31a5d29b8::t_aff866b421787f 89
+  s_afc6d31a5d29b8::t_e6b6e50b856bf7 80,82
+  s_afc6d31a5d29b8::t_f7ebf4f82511e6 140
+client/src/components/BalanceDisplay.tsx
+  s_afc6d31a5d29b8::t_2456537ffb1568 35
+  s_afc6d31a5d29b8::t_8b8f769c4a6a32 19,24,28
+DESIGN.md
+  s_afc6d31a5d29b8::t_84f77f73b04003 1-634
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "19546088a123fe3dad36f40902f6ce971e4fab50",
+  "prompts": {},
+  "sessions": {
+    "s_afc6d31a5d29b8": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_07c0d5e1fffeUhhASCiCmp0G3n",
+        "model": "unknown"
+      },
+      "human_author": "ankitapolu <ankita.polu@example.com>"
+    }
+  }
+}

@@ -16,4 +16,22 @@ export class AppController {
   ) {
     return this.appService.sendXlm(body.destination, body.amount, body.secretKey);
   }
+
+  @Post('transactions')
+  async recordTransaction(
+    @Body() body: {
+      senderAddress: string;
+      recipientAddress: string;
+      amount: string;
+      txHash?: string;
+      status?: string;
+    },
+  ) {
+    return this.appService.recordTransaction(body);
+  }
+
+  @Get('transactions')
+  async getTransactions() {
+    return this.appService.getTransactions();
+  }
 }

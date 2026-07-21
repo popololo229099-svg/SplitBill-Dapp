@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Transaction {
+  id               String   @id @default(uuid())
+  senderAddress    String
+  recipientAddress String
+  amount           String
+  txHash           String?
+  status           String   @default("pending")
+  network          String   @default("testnet")
+  createdAt        DateTime @default(now())
+}

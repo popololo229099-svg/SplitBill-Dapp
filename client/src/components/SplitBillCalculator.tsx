@@ -4,6 +4,26 @@ import { buildPaymentTransaction } from '../utils/stellar';
 import { signTransaction } from '../utils/freighter';
 import { submitSignedTransaction } from '../utils/stellar';
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://splitbill-h0q9.onrender.com';
+
+async function saveTransaction(tx: {
+  senderAddress: string;
+  recipientAddress: string;
+  amount: string;
+  txHash?: string;
+  status: string;
+}) {
+  try {
+    await fetch(`${API_URL}/api/transactions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(tx),
+    });
+  } catch {
+    // silently fail — don't block the UI
+  }
+}
+
 type TxStatus = 'idle' | 'building' | 'awaiting_signature' | 'submitting' | 'success' | 'error';
 type ActiveView = 'setup' | 'review' | 'sending' | 'result';
 
@@ -97,11 +117,26 @@ export default function SplitBillCalculator() {
           next[i] = { ...next[i], status: 'success', hash: result.hash };
           return next;
         });
+
+        saveTransaction({
+          senderAddress: walletAddress!,
+          recipientAddress: recipients[i].address,
+          amount: recipients[i].amount,
+          txHash: result.hash,
+          status: 'success',
+        });
       } catch (e: any) {
         setTransactions((prev) => {
           const next = [...prev];
           next[i] = { ...next[i], status: 'error', error: e.message || 'Transaction failed' };
           return next;
+        });
+
+        saveTransaction({
+          senderAddress: walletAddress!,
+          recipientAddress: recipients[i].address,
+          amount: recipients[i].amount,
+          status: 'failed',
         });
       }
     }

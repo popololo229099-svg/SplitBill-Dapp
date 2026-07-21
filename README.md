@@ -1,8 +1,16 @@
-# SplitBill - Stellar XLM Split Payment dApp
+<img width="1911" height="830" alt="splitbill3" src="https://github.com/user-attachments/assets/6b058bed-d315-47cb-871d-7d88e7545859" /># SplitBill - Stellar XLM Split Payment dApp
 
 A decentralized **Split Bill Calculator** built on the **Stellar testnet** with a Binance-inspired dark theme. Connect your Freighter wallet, split a bill among friends, and send XLM to multiple recipients in one seamless flow.
 
 Built for the **Stellar White Belt (Level 1)** challenge.
+
+
+
+
+<img width="1892" height="906" alt="splitbill1" src="https://github.com/user-attachments/assets/53756c47-ad50-449f-b691-298d3921a60e" />
+
+
+<img width="1863" height="906" alt="splitbill2" src="https://github.com/user-attachments/assets/5f4d5a73-a52c-43da-abe1-162d420024ae" />
 
 ## Features
 
@@ -12,6 +20,9 @@ Built for the **Stellar White Belt (Level 1)** challenge.
 - Send XLM transactions on the Stellar testnet
 - Per-recipient success/failure feedback with transaction hashes
 - Transaction history saved to PostgreSQL (Neon) via NestJS backend
+<img width="1911" height="830" alt="splitbill3" src="https://github.com/user-attachments/assets/d0d9e543-51c7-4d06-820e-a947f344ec8e" />
+
+
 
 ## Tech Stack
 

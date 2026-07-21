@@ -16,23 +16,23 @@ export default function BalanceDisplay() {
       alignItems: 'center',
     }}>
       <div>
-        <div style={{ fontSize: 11, color: '#848e9c', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 2 }}>
+        <div style={{ fontSize: 11, color: '#707a8a', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 2 }}>
           Wallet Balance
         </div>
         <div style={{ fontSize: 20, fontWeight: 700, color: '#eaecef' }}>
           {balance !== null ? `${parseFloat(balance).toFixed(2)}` : '---'}
-          <span style={{ fontSize: 12, fontWeight: 400, color: '#848e9c', marginLeft: 4 }}>XLM</span>
+          <span style={{ fontSize: 12, fontWeight: 400, color: '#707a8a', marginLeft: 4 }}>XLM</span>
         </div>
       </div>
       <div style={{ textAlign: 'right' }}>
-        <div style={{ fontSize: 11, color: '#848e9c', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 2 }}>
+        <div style={{ fontSize: 11, color: '#707a8a', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 2 }}>
           Network
         </div>
         <div style={{
           fontSize: 11, color: '#f0b90b', fontWeight: 600,
           background: 'rgba(240, 185, 11, 0.1)',
           padding: '2px 8px',
-          borderRadius: 4,
+      borderRadius: 12,
           display: 'inline-block',
         }}>
           Testnet

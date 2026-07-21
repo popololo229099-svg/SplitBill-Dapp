@@ -15,7 +15,7 @@ export default function WalletConnect() {
       gap: 8,
       background: '#1e2329',
       border: '1px solid #2b3139',
-      borderRadius: 4,
+      borderRadius: 6,
       padding: '7px 12px',
       cursor: 'default',
       fontSize: 13,
@@ -30,7 +30,7 @@ export default function WalletConnect() {
     disconnectBtn: {
       background: 'none',
       border: '1px solid #474d57',
-      borderRadius: 4,
+      borderRadius: 6,
       color: '#eaecef',
       padding: '7px 12px',
       cursor: 'pointer',
@@ -39,7 +39,7 @@ export default function WalletConnect() {
     connectBtn: {
       background: '#f0b90b',
       border: 'none',
-      borderRadius: 4,
+      borderRadius: 6,
       color: '#0b0e11',
       padding: '8px 20px',
       cursor: 'pointer',
@@ -50,8 +50,8 @@ export default function WalletConnect() {
     connectBtnDisabled: {
       background: '#474d57',
       border: 'none',
-      borderRadius: 4,
-      color: '#848e9c',
+      borderRadius: 6,
+      color: '#707a8a',
       padding: '8px 20px',
       cursor: 'not-allowed',
       fontSize: 14,
@@ -60,7 +60,7 @@ export default function WalletConnect() {
     warning: {
       background: '#1e1a2a',
       border: '1px solid #f0b90b',
-      borderRadius: 4,
+      borderRadius: 6,
       padding: '8px 12px',
       fontSize: 12,
       color: '#f0b90b',

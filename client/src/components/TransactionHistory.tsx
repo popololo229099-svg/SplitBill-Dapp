@@ -59,7 +59,7 @@ export default function TransactionHistory() {
   const btnPrimary = {
     width: '100%',
     padding: '10px',
-    borderRadius: 4,
+    borderRadius: 6,
     border: 'none',
     background: '#f0b90b',
     color: '#0b0e11',
@@ -77,16 +77,16 @@ export default function TransactionHistory() {
       {loading && (
         <div style={{
           background: '#1e2329', border: '1px solid #2b3139',
-          borderRadius: 4, padding: 32, textAlign: 'center',
+          borderRadius: 8, padding: 32, textAlign: 'center',
         }}>
-          <div style={{ fontSize: 13, color: '#848e9c' }}>Loading...</div>
+          <div style={{ fontSize: 13, color: '#707a8a' }}>Loading...</div>
         </div>
       )}
 
       {error && (
         <div style={{
           background: '#1e2329', border: '1px solid #2b3139',
-          borderRadius: 4, padding: 32, textAlign: 'center',
+          borderRadius: 8, padding: 32, textAlign: 'center',
         }}>
           <div style={{ fontSize: 13, color: '#f6465d' }}>{error}</div>
           <button
@@ -101,10 +101,10 @@ export default function TransactionHistory() {
       {!loading && !error && myTxs.length === 0 && (
         <div style={{
           background: '#1e2329', border: '1px solid #2b3139',
-          borderRadius: 4, padding: 32, textAlign: 'center',
+          borderRadius: 8, padding: 32, textAlign: 'center',
         }}>
           <div style={{ fontSize: 28, marginBottom: 8 }}>📋</div>
-          <div style={{ fontSize: 13, color: '#848e9c' }}>
+          <div style={{ fontSize: 13, color: '#707a8a' }}>
             No transactions yet. Split a bill to get started.
           </div>
         </div>
@@ -112,11 +112,11 @@ export default function TransactionHistory() {
 
       {!loading && !error && myTxs.length > 0 && (
         <div style={{
-          background: '#1e2329', borderRadius: 4, border: '1px solid #2b3139', overflow: 'hidden',
+          background: '#1e2329', borderRadius: 8, border: '1px solid #2b3139', overflow: 'hidden',
         }}>
           <div style={{
             padding: '10px 12px', borderBottom: '1px solid #2b3139',
-            fontSize: 11, color: '#848e9c', fontWeight: 600,
+            fontSize: 11, color: '#707a8a', fontWeight: 600,
             textTransform: 'uppercase', letterSpacing: '0.5px',
           }}>
             {myTxs.length} transaction{myTxs.length !== 1 ? 's' : ''}
@@ -137,13 +137,13 @@ export default function TransactionHistory() {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                     <span style={{
                       fontSize: 11, fontWeight: 600,
-                      color: statusColors[tx.status] || '#848e9c',
+                      color: statusColors[tx.status] || '#707a8a',
                     }}>
                       {statusLabels[tx.status] || tx.status}
                     </span>
                     <div style={{
                       width: 8, height: 8, borderRadius: '50%',
-                      background: statusColors[tx.status] || '#848e9c',
+                      background: statusColors[tx.status] || '#707a8a',
                     }} />
                   </div>
                 </div>

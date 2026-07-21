@@ -150,7 +150,7 @@ export default function SplitBillCalculator() {
   const inputBase = {
     width: '100%',
     padding: '8px 12px',
-    borderRadius: 4,
+    borderRadius: 6,
     border: '1px solid #2b3139',
     background: '#1e2329',
     color: '#eaecef',
@@ -161,7 +161,7 @@ export default function SplitBillCalculator() {
 
   const labelStyle = {
     fontSize: 12,
-    color: '#848e9c',
+    color: '#707a8a',
     marginBottom: 4,
     fontWeight: 500,
   } as React.CSSProperties;
@@ -169,7 +169,7 @@ export default function SplitBillCalculator() {
   const btnPrimary = {
     width: '100%',
     padding: '10px',
-    borderRadius: 4,
+    borderRadius: 6,
     border: 'none',
     background: '#f0b90b',
     color: '#0b0e11',
@@ -182,10 +182,10 @@ export default function SplitBillCalculator() {
   const btnDisabled = {
     width: '100%',
     padding: '10px',
-    borderRadius: 4,
+    borderRadius: 6,
     border: 'none',
     background: '#474d57',
-    color: '#848e9c',
+    color: '#707a8a',
     fontSize: 14,
     fontWeight: 700,
     cursor: 'not-allowed',
@@ -193,7 +193,7 @@ export default function SplitBillCalculator() {
 
   const btnOutline = {
     padding: '8px 16px',
-    borderRadius: 4,
+    borderRadius: 6,
     border: '1px solid #474d57',
     background: 'transparent',
     color: '#eaecef',
@@ -202,7 +202,7 @@ export default function SplitBillCalculator() {
   } as React.CSSProperties;
 
   const statusColors = {
-    idle: '#848e9c',
+    idle: '#707a8a',
     building: '#f0b90b',
     awaiting_signature: '#f0b90b',
     submitting: '#f0b90b',
@@ -241,7 +241,7 @@ export default function SplitBillCalculator() {
               />
               <span style={{
                 position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)',
-                fontSize: 12, color: '#848e9c', fontWeight: 600,
+                fontSize: 12, color: '#707a8a', fontWeight: 600,
               }}>
                 XLM
               </span>
@@ -258,7 +258,7 @@ export default function SplitBillCalculator() {
               <span style={labelStyle}>Participants ({validParticipants.length})</span>
               {isFormValid && (
                 <div style={{
-                  background: '#1e2329', borderRadius: 4, padding: '4px 10px',
+                  background: '#1e2329', borderRadius: 6, padding: '4px 10px',
                   fontSize: 12, color: '#f0b90b', fontWeight: 600,
                   border: '1px solid #2b3139',
                 }}>
@@ -272,7 +272,7 @@ export default function SplitBillCalculator() {
                 <div key={i} style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
                   <div style={{
                     width: 22, height: 22, borderRadius: '50%',
-                    background: '#2b3139', color: '#848e9c',
+                    background: '#2b3139', color: '#707a8a',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontSize: 11, fontWeight: 600, flexShrink: 0,
                   }}>
@@ -286,12 +286,12 @@ export default function SplitBillCalculator() {
                   />
                   {participants.length > 2 && (
                     <button onClick={() => removeParticipant(i)} style={{
-                      background: 'none', border: 'none', color: '#848e9c',
+                      background: 'none', border: 'none', color: '#707a8a',
                       cursor: 'pointer', fontSize: 16, padding: '2px 4px',
                       lineHeight: 1,
                     }}
                       onMouseEnter={(e) => e.currentTarget.style.color = '#f6465d'}
-                      onMouseLeave={(e) => e.currentTarget.style.color = '#848e9c'}
+                      onMouseLeave={(e) => e.currentTarget.style.color = '#707a8a'}
                     >
                       ×
                     </button>
@@ -301,23 +301,23 @@ export default function SplitBillCalculator() {
             </div>
 
             <button onClick={addParticipant} style={{
-              ...btnOutline, width: '100%', marginTop: 8, fontSize: 12, color: '#848e9c',
+              ...btnOutline, width: '100%', marginTop: 8, fontSize: 12, color: '#707a8a',
             }}
               onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#f0b90b'; e.currentTarget.style.color = '#f0b90b'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#474d57'; e.currentTarget.style.color = '#848e9c'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#474d57'; e.currentTarget.style.color = '#707a8a'; }}
             >
               + Add participant
             </button>
           </div>
 
           <div style={{
-            background: '#1e2329', borderRadius: 4, border: '1px solid #2b3139',
+            background: '#1e2329', borderRadius: 8, border: '1px solid #2b3139',
             padding: '8px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           }}>
-            <span style={{ fontSize: 12, color: '#848e9c' }}>You pay</span>
+            <span style={{ fontSize: 12, color: '#707a8a' }}>You pay</span>
             <span style={{ fontSize: 14, fontWeight: 700, color: '#f0b90b' }}>
               {validParticipants.length > 0 ? totalAmount || '0' : '0'}
-              <span style={{ fontSize: 11, color: '#848e9c', fontWeight: 400, marginLeft: 3 }}>XLM</span>
+              <span style={{ fontSize: 11, color: '#707a8a', fontWeight: 400, marginLeft: 3 }}>XLM</span>
             </span>
           </div>
 
@@ -337,7 +337,7 @@ export default function SplitBillCalculator() {
         <>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 4 }}>
             <button onClick={backToSetup} style={{
-              background: 'none', border: 'none', color: '#848e9c', cursor: 'pointer', fontSize: 16, padding: 0,
+              background: 'none', border: 'none', color: '#707a8a', cursor: 'pointer', fontSize: 16, padding: 0,
             }}>
               ←
             </button>
@@ -345,25 +345,25 @@ export default function SplitBillCalculator() {
           </div>
 
           <div style={{
-            background: '#1e2329', borderRadius: 4, border: '1px solid #2b3139', overflow: 'hidden',
+            background: '#1e2329', borderRadius: 8, border: '1px solid #2b3139', overflow: 'hidden',
           }}>
-            <div style={{ padding: '10px 12px', borderBottom: '1px solid #2b3139', fontSize: 11, color: '#848e9c', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+            <div style={{ padding: '10px 12px', borderBottom: '1px solid #2b3139', fontSize: 11, color: '#707a8a', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               Summary
             </div>
             <div style={{ padding: '10px 12px', display: 'flex', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: 13, color: '#848e9c' }}>Total amount</span>
+              <span style={{ fontSize: 13, color: '#707a8a' }}>Total amount</span>
               <span style={{ fontSize: 14, fontWeight: 600, color: '#eaecef' }}>{totalAmount} XLM</span>
             </div>
             <div style={{ padding: '0 12px 10px', display: 'flex', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: 13, color: '#848e9c' }}>Recipients</span>
+              <span style={{ fontSize: 13, color: '#707a8a' }}>Recipients</span>
               <span style={{ fontSize: 14, fontWeight: 600, color: '#eaecef' }}>{validParticipants.length} people</span>
             </div>
             <div style={{ padding: '0 12px 10px', display: 'flex', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: 13, color: '#848e9c' }}>Each receives</span>
+              <span style={{ fontSize: 13, color: '#707a8a' }}>Each receives</span>
               <span style={{ fontSize: 14, fontWeight: 600, color: '#0ecb81' }}>{splitAmount} XLM</span>
             </div>
             <div style={{ padding: '0 12px 10px', display: 'flex', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: 13, color: '#848e9c' }}>Network</span>
+              <span style={{ fontSize: 13, color: '#707a8a' }}>Network</span>
               <span style={{
                 fontSize: 11, color: '#f0b90b', fontWeight: 600,
                 background: 'rgba(240, 185, 11, 0.1)', padding: '2px 6px', borderRadius: 4,
@@ -374,9 +374,9 @@ export default function SplitBillCalculator() {
           </div>
 
           <div style={{
-            background: '#1e2329', borderRadius: 4, border: '1px solid #2b3139', overflow: 'hidden',
+            background: '#1e2329', borderRadius: 8, border: '1px solid #2b3139', overflow: 'hidden',
           }}>
-            <div style={{ padding: '10px 12px', borderBottom: '1px solid #2b3139', fontSize: 11, color: '#848e9c', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+            <div style={{ padding: '10px 12px', borderBottom: '1px solid #2b3139', fontSize: 11, color: '#707a8a', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               Recipients
             </div>
             {validParticipants.map((addr, i) => (
@@ -385,7 +385,7 @@ export default function SplitBillCalculator() {
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center',
               }}>
                 <div>
-                  <div style={{ fontSize: 11, color: '#848e9c' }}>#{i + 1}</div>
+                  <div style={{ fontSize: 11, color: '#707a8a' }}>#{i + 1}</div>
                   <div style={{ fontSize: 12, color: '#eaecef' }}>{addr.slice(0, 6)}...{addr.slice(-4)}</div>
                 </div>
                 <span style={{ fontSize: 13, fontWeight: 600, color: '#eaecef' }}>{splitAmount} XLM</span>
@@ -413,22 +413,22 @@ export default function SplitBillCalculator() {
           {allSuccess && (
             <div style={{
               background: 'rgba(14, 203, 129, 0.1)', border: '1px solid #0ecb81',
-              borderRadius: 4, padding: 16, textAlign: 'center',
+              borderRadius: 8, padding: 16, textAlign: 'center',
             }}>
               <div style={{ fontSize: 28, marginBottom: 8 }}>✓</div>
               <div style={{ fontSize: 15, fontWeight: 600, color: '#0ecb81', marginBottom: 4 }}>
                 Successfully sent {totalAmount} XLM
               </div>
-              <div style={{ fontSize: 12, color: '#848e9c' }}>
+              <div style={{ fontSize: 12, color: '#707a8a' }}>
                 to {validParticipants.length} recipient{validParticipants.length > 1 ? 's' : ''}
               </div>
             </div>
           )}
 
           <div style={{
-            background: '#1e2329', borderRadius: 4, border: '1px solid #2b3139', overflow: 'hidden',
+            background: '#1e2329', borderRadius: 8, border: '1px solid #2b3139', overflow: 'hidden',
           }}>
-            <div style={{ padding: '10px 12px', borderBottom: '1px solid #2b3139', fontSize: 11, color: '#848e9c', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+            <div style={{ padding: '10px 12px', borderBottom: '1px solid #2b3139', fontSize: 11, color: '#707a8a', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               Transactions
             </div>
             {transactions.map((tx, i) => (
@@ -453,7 +453,7 @@ export default function SplitBillCalculator() {
                     )}
                   </div>
                 </div>
-                <div style={{ fontSize: 11, color: '#848e9c' }}>
+                <div style={{ fontSize: 11, color: '#707a8a' }}>
                   {tx.amount} XLM
                 </div>
                 {tx.hash && (

@@ -6,36 +6,51 @@ Built for the **Stellar White Belt (Level 1)** challenge.
 
 ## Features
 
-| Requirement | Status |
-|-------------|--------|
-| ✅ Freighter Wallet Setup | Connect & disconnect |
-| ✅ Balance Display | Real-time XLM balance from Horizon |
-| ✅ Send XLM Transaction | Split bill payments on testnet |
-| ✅ Transaction Feedback | Success/failure per recipient with hash |
-| ✅ UI Setup | React + TypeScript + NestJS |
+- Connect and disconnect Freighter wallet
+- Real-time XLM balance display from Stellar Horizon
+- Split bills among multiple participants
+- Send XLM transactions on the Stellar testnet
+- Per-recipient success/failure feedback with transaction hashes
+- Transaction history saved to PostgreSQL (Neon) via NestJS backend
 
 ## Tech Stack
 
 - **Frontend:** React 19, TypeScript, Vite
-- **Backend:** NestJS (with `@stellar/stellar-sdk`)
-- **Wallet:** `@stellar/freighter-api` v6
+- **Backend:** NestJS, Prisma, PostgreSQL (Neon)
+- **Wallet:** `@stellar/freighter-api` v6, Stellar SDK
 - **Network:** Stellar Testnet
+
+## Live Deployments
+
+- **Frontend:** https://xlm-payment-dapp.vercel.app
+- **Backend:** https://splitbill-h0q9.onrender.com
 
 ## Project Structure
 
 ```
 xlm-payment-dapp/
-├── client/                 # React frontend
+├── client/                     # React frontend
 │   └── src/
-│       ├── components/     # WalletConnect, BalanceDisplay, SplitBillCalculator
-│       ├── context/        # WalletContext (wallet state management)
-│       └── utils/          # freighter.ts, stellar.ts (API helpers)
-├── server/                 # NestJS backend
+│       ├── components/
+│       │   ├── WalletConnect.tsx       # Connect/disconnect wallet
+│       │   ├── BalanceDisplay.tsx      # Show XLM balance
+│       │   ├── SplitBillCalculator.tsx # Split bill UI + send payments
+│       │   └── TransactionHistory.tsx  # View past transactions
+│       ├── context/
+│       │   └── WalletContext.tsx       # Wallet state management
+│       └── utils/
+│           ├── freighter.ts            # Freighter wallet API helpers
+│           └── stellar.ts             # Stellar transaction building
+├── server/                     # NestJS backend
+│   ├── prisma/
+│   │   └── schema.prisma              # Database schema
 │   └── src/
-│       ├── app.controller.ts   # GET /api/status, POST /api/send-xlm
+│       ├── app.controller.ts          # API routes
+│       ├── app.service.ts             # Stellar + DB logic
 │       ├── app.module.ts
-│       └── app.service.ts      # Stellar transaction logic
-├── screenshots/            # 📸 Add your screenshots here
+│       ├── prisma.service.ts          # Prisma/Neon connection
+│       └── main.ts                    # Server entry point
+├── screenshots/                # Submission screenshots
 └── README.md
 ```
 
@@ -50,21 +65,25 @@ xlm-payment-dapp/
 ### Run Locally
 
 ```bash
-# 1. Clone
+# 1. Clone the repository
 git clone https://github.com/ankitapolu/xlm-payment-dapp.git
 cd xlm-payment-dapp
 
-# 2. Install client dependencies
-cd client
+# 2. Install dependencies (root + client + server)
 npm install
-cd ..
+cd client && npm install && cd ..
+cd server && npm install && cd ..
 
-# 3. Install server dependencies
+# 3. Set up environment variables
 cd server
-npm install
+cp .env.example .env    # or create .env with:
+# STELLAR_HORIZON_URL=https://horizon-testnet.stellar.org
+# STELLAR_NETWORK_PASSPHRASE=Test SDF Network ; September 2015
+# PORT=3000
+# DATABASE_URL=<your-neon-postgres-url>
 cd ..
 
-# 4. Start both (frontend + backend)
+# 4. Start both frontend and backend
 npm run dev
 ```
 
@@ -73,24 +92,24 @@ npm run dev
 
 ## Usage
 
-1. Install **Freighter** wallet extension and create a testnet account
+1. Install the **Freighter** wallet extension and create a testnet account
 2. Fund your account via [Stellar Friendbot](https://friendly.stellar.org/) (get 10,000 free test XLM)
-3. Open the app → click **Connect Wallet** (top right)
+3. Open the app and click **Connect Wallet** (top right)
 4. Your wallet address and XLM balance will appear
-5. Enter total bill amount, add participant addresses
-6. Review the summary → click **Confirm & Send**
-7. Sign each transaction in Freighter
+5. Enter the total bill amount and add participant Stellar addresses
+6. Review the summary and click **Confirm & Send**
+7. Sign each transaction in the Freighter popup
 8. View results per recipient with transaction hashes
+9. Switch to the **History** tab to see all past transactions
 
-## Smart Contract
+## API Endpoints
 
-A Stellar Soroban contract is deployed for on-chain split bill logic:
-
-- **Contract ID:** `CA4SOMETHING...` (testnet)
-- **Network:** Stellar Testnet
-- **Functions:** `split_payment`, `get_split_info`
-
-> *Contract deployment details to be filled after compilation.*
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/status` | Server health check |
+| POST | `/api/send-xlm` | Send XLM (server-side signing) |
+| POST | `/api/transactions` | Record a transaction |
+| GET | `/api/transactions` | Fetch recent transactions |
 
 ## Screenshots
 
@@ -100,19 +119,25 @@ A Stellar Soroban contract is deployed for on-chain split bill logic:
 | Split Bill Setup | ![](screenshots/split-bill-setup.png) |
 | Transaction Review | ![](screenshots/transaction-review.png) |
 | Successful Transaction | ![](screenshots/transaction-success.png) |
+| Transaction History | ![](screenshots/transaction-history.png) |
 
-> **Replace the placeholder images above with your actual screenshots in the `screenshots/` folder.**
+> **Add your screenshots to the `screenshots/` folder and update the paths above.**
 
 ## Submission Checklist
 
 - [x] Public GitHub repository
-- [x] README.md with project description and setup instructions
+- [x] README.md with project description
+- [x] Setup instructions (how to run locally)
+- [x] Wallet connect functionality
+- [x] Wallet disconnect functionality
+- [x] Fetch and display XLM balance
+- [x] Send XLM transaction on Stellar testnet
+- [x] Success/failure feedback with transaction hash
 - [ ] Screenshots added to `screenshots/` folder
   - [ ] Wallet connected state
   - [ ] Balance displayed
   - [ ] Successful testnet transaction
   - [ ] Transaction result shown to user
-- [ ] Deployed smart contract (optional bonus)
 
 ## License
 

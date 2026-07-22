@@ -1,0 +1,23 @@
+README.md
+  s_03d6f487a48d42::t_c89a795b3bd0a8 61-64
+  s_03d6f487a48d42::t_a90f85b0789984 184,188-191
+  s_03d6f487a48d42::t_2b079c334d2189 49
+.github/workflows/ci.yml
+  s_03d6f487a48d42::t_dbb0cb4f826256 1-193
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "4cdcc6093302955b9e230a76c3736a68deb0e6a7",
+  "prompts": {},
+  "sessions": {
+    "s_03d6f487a48d42": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0793ed5aaffem8l2THMu28yDMI",
+        "model": "unknown"
+      },
+      "human_author": "ankitapolu <ankita.polu@example.com>"
+    }
+  }
+}

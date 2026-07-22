@@ -1,10 +1,9 @@
 import { StellarWalletsKit, SwkAppDarkTheme } from '@creit.tech/stellar-wallets-kit';
-import type { ISwkModule, SwkTheme } from '@creit.tech/stellar-wallets-kit';
+import type { ModuleInterface, SwkAppTheme } from '@creit.tech/stellar-wallets-kit';
 import { FreighterModule } from '@creit.tech/stellar-wallets-kit/modules/freighter';
 import { LobstrModule } from '@creit.tech/stellar-wallets-kit/modules/lobstr';
 import { AlbedoModule } from '@creit.tech/stellar-wallets-kit/modules/albedo';
-
-const TESTNET_PASSPHRASE = 'Test SDF Network ; September 2015';
+import { Networks } from '@creit.tech/stellar-wallets-kit';
 
 export const WALLET_OPTIONS = [
   { id: 'freighter', name: 'Freighter', icon: '🦊' },
@@ -12,7 +11,7 @@ export const WALLET_OPTIONS = [
   { id: 'albedo', name: 'Albedo', icon: '🔷' },
 ] as const;
 
-const swkTheme: SwkTheme = {
+const swkTheme: SwkAppTheme = {
   ...SwkAppDarkTheme,
   'background': '#1e2329',
   'background-secondary': '#0b0e11',
@@ -31,7 +30,7 @@ let initialized = false;
 export function initWalletKit(): void {
   if (initialized) return;
 
-  const modules: ISwkModule[] = [
+  const modules: ModuleInterface[] = [
     new FreighterModule(),
     new LobstrModule(),
     new AlbedoModule(),
@@ -39,7 +38,7 @@ export function initWalletKit(): void {
 
   StellarWalletsKit.init({
     modules,
-    network: TESTNET_PASSPHRASE,
+    network: Networks.TESTNET,
     theme: swkTheme,
   });
 
@@ -71,9 +70,9 @@ export async function getAddressFromKit(): Promise<string | null> {
 export async function signTransactionWithKit(xdr: string): Promise<{ signedTxXdr: string; signerAddress: string }> {
   initWalletKit();
   const result = await StellarWalletsKit.signTransaction(xdr, {
-    networkPassphrase: TESTNET_PASSPHRASE,
+    networkPassphrase: Networks.TESTNET,
   });
-  return result;
+  return { signedTxXdr: result.signedTxXdr, signerAddress: result.signerAddress ?? '' };
 }
 
 export async function disconnectKit(): Promise<void> {

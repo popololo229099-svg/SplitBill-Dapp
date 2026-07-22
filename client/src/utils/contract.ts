@@ -99,8 +99,8 @@ export async function getTotalSplits(): Promise<bigint> {
       })(),
     );
 
-    if (result.result) {
-      const val = StellarSdk.scValToNative(result.result.xdr);
+    if ('result' in result && result.result) {
+      const val = StellarSdk.scValToNative(result.result.retval);
       return BigInt(val);
     }
     return 0n;
@@ -130,8 +130,8 @@ export async function getSplits(start: number, limit: number): Promise<SplitReco
       })(),
     );
 
-    if (result.result) {
-      const val = StellarSdk.scValToNative(result.result.xdr);
+    if ('result' in result && result.result) {
+      const val = StellarSdk.scValToNative(result.result.retval);
       return val;
     }
     return [];

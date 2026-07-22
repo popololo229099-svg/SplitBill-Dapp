@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React, { createElement } from 'react';
+import { createElement } from 'react';
 import WalletConnect from '../components/WalletConnect';
 
 vi.mock('../context/WalletContext', () => ({

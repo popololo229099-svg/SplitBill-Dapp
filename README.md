@@ -277,6 +277,7 @@ GitHub Actions with 4 stages:
 ```
 test result: ok. 10 passed; 0 failed; 0 ignored
 ```
+<img width="1866" height="911" alt="image" src="https://github.com/user-attachments/assets/d7715aba-a0ae-45ad-8e66-66051ffbef7d" />
 
 ### Frontend Tests (15/15 passing)
 ```

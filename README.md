@@ -47,6 +47,13 @@ Built for the **Stellar Belt Challenge** (Levels 1-3).
 | `get_split(id)` | Get a specific split record |
 | `get_splits(start, limit)` | Get recent split records (paginated) |
 
+
+##Frontend deployed link - > https://xlm-payment-dapp.vercel.app
+
+##Backend deployed link - > https://splitbill-h0q9.onrender.com
+
+
+
 ## Tech Stack
 
 - **Frontend:** React 19, TypeScript 6, Vite 8
@@ -167,6 +174,22 @@ stellar contract deploy \
 ```
 
 ## Video Demo
+
+
+
+
+
+
+
+
+
+
+https://github.com/user-attachments/assets/d1b9b803-f561-40bc-8ceb-eafdf2ec638d
+
+
+
+
+
 
 
 ## Usage

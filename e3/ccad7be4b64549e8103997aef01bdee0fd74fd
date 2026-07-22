@@ -1,0 +1,19 @@
+.github/workflows/ci.yml
+  s_03d6f487a48d42::t_b8c2eb85dbee85 161-163,170-176
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "e3ccad7be4b64549e8103997aef01bdee0fd74fd",
+  "prompts": {},
+  "sessions": {
+    "s_03d6f487a48d42": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0793ed5aaffem8l2THMu28yDMI",
+        "model": "unknown"
+      },
+      "human_author": "ankitapolu <ankita.polu@example.com>"
+    }
+  }
+}

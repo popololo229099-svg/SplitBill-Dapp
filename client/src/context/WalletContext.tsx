@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
-import { openAuthModal, getAddressFromKit, disconnectKit, initWalletKit } from '../utils/wallet-kit';
+import { openAuthModal, connectSpecificWallet, getAddressFromKit, disconnectKit, initWalletKit } from '../utils/wallet-kit';
 import { fetchBalance } from '../utils/contract';
 
 export type ErrorType = 'wallet_not_found' | 'transaction_rejected' | 'insufficient_balance' | 'connection_failed' | 'unknown';
@@ -16,6 +16,7 @@ interface WalletState {
   isConnecting: boolean;
   error: WalletError | null;
   connect: () => Promise<void>;
+  connectWallet: (walletId: string) => Promise<void>;
   disconnect: () => void;
   refreshBalance: () => Promise<void>;
   clearError: () => void;
@@ -78,6 +79,27 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const connectWallet = useCallback(async (walletId: string) => {
+    setError(null);
+    setIsConnecting(true);
+    try {
+      const addr = await connectSpecificWallet(walletId);
+      setAddress(addr);
+      const bal = await fetchBalance(addr);
+      setBalance(bal);
+    } catch (e: any) {
+      if (e?.message?.includes('User closed') || e?.message?.includes('closed')) {
+        setError(null);
+      } else if (e?.message?.includes('not found') || e?.message?.includes('not installed')) {
+        setError({ type: 'wallet_not_found', message: `${walletId} wallet is not installed. Please install it first.` });
+      } else {
+        setError({ type: 'connection_failed', message: e?.message || `Failed to connect to ${walletId}` });
+      }
+    } finally {
+      setIsConnecting(false);
+    }
+  }, []);
+
   const disconnect = useCallback(async () => {
     await disconnectKit();
     setAddress(null);
@@ -106,6 +128,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         isConnecting,
         error,
         connect,
+        connectWallet,
         disconnect,
         refreshBalance,
         clearError,

@@ -6,6 +6,12 @@ import { AlbedoModule } from '@creit.tech/stellar-wallets-kit/modules/albedo';
 
 const TESTNET_PASSPHRASE = 'Test SDF Network ; September 2015';
 
+export const WALLET_OPTIONS = [
+  { id: 'freighter', name: 'Freighter', icon: '🦊' },
+  { id: 'lobstr', name: 'LOBSTR', icon: '🐋' },
+  { id: 'albedo', name: 'Albedo', icon: '🔷' },
+] as const;
+
 const swkTheme: SwkTheme = {
   ...SwkAppDarkTheme,
   'background': '#1e2329',
@@ -44,6 +50,13 @@ export async function openAuthModal(): Promise<string> {
   initWalletKit();
   const result = await StellarWalletsKit.authModal();
   return result.address;
+}
+
+export async function connectSpecificWallet(walletId: string): Promise<string> {
+  initWalletKit();
+  StellarWalletsKit.setWallet(walletId);
+  const { address } = await StellarWalletsKit.fetchAddress();
+  return address;
 }
 
 export async function getAddressFromKit(): Promise<string | null> {

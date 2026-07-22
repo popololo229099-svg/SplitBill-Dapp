@@ -1,8 +1,9 @@
 import { useWallet } from '../context/WalletContext';
 import { useIsMobile } from '../hooks/useMediaQuery';
+import { WALLET_OPTIONS } from '../utils/wallet-kit';
 
 export default function WalletConnect() {
-  const { address, isConnecting, error, connect, disconnect, clearError } = useWallet();
+  const { address, isConnecting, error, connectWallet, disconnect, clearError } = useWallet();
   const mobile = useIsMobile();
 
   const styles = {
@@ -38,27 +39,38 @@ export default function WalletConnect() {
       cursor: 'pointer',
       fontSize: mobile ? 12 : 13,
     } as React.CSSProperties,
-    connectBtn: {
-      background: '#f0b90b',
-      border: 'none',
+    walletBtn: {
+      background: '#1e2329',
+      border: '1px solid #2b3139',
       borderRadius: 6,
-      color: '#0b0e11',
-      padding: mobile ? '7px 14px' : '8px 20px',
+      color: '#eaecef',
+      padding: mobile ? '6px 10px' : '7px 14px',
       cursor: 'pointer',
-      fontSize: mobile ? 13 : 14,
-      fontWeight: 600,
-      transition: 'background 0.15s',
+      fontSize: mobile ? 12 : 13,
+      fontWeight: 500,
+      display: 'flex',
+      alignItems: 'center',
+      gap: 5,
+      transition: 'border-color 0.15s, background 0.15s',
       whiteSpace: 'nowrap' as const,
     } as React.CSSProperties,
-    connectBtnDisabled: {
-      background: '#474d57',
-      border: 'none',
+    walletBtnDisabled: {
+      background: '#1a1e24',
+      border: '1px solid #2b3139',
       borderRadius: 6,
-      color: '#707a8a',
-      padding: mobile ? '7px 14px' : '8px 20px',
+      color: '#474d57',
+      padding: mobile ? '6px 10px' : '7px 14px',
       cursor: 'not-allowed',
-      fontSize: mobile ? 13 : 14,
-      fontWeight: 600,
+      fontSize: mobile ? 12 : 13,
+      fontWeight: 500,
+      display: 'flex',
+      alignItems: 'center',
+      gap: 5,
+      whiteSpace: 'nowrap' as const,
+    } as React.CSSProperties,
+    walletIcon: {
+      fontSize: 14,
+      lineHeight: 1,
     } as React.CSSProperties,
     errorBanner: {
       background: 'rgba(246, 70, 93, 0.1)',
@@ -109,19 +121,32 @@ export default function WalletConnect() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'flex-end' }}>
-      <button
-        onClick={connect}
-        disabled={isConnecting}
-        style={!isConnecting ? styles.connectBtn : styles.connectBtnDisabled}
-        onMouseEnter={(e) => {
-          if (!isConnecting) e.currentTarget.style.background = '#e0a800';
-        }}
-        onMouseLeave={(e) => {
-          if (!isConnecting) e.currentTarget.style.background = '#f0b90b';
-        }}
-      >
-        {isConnecting ? 'Connecting...' : mobile ? 'Connect' : 'Connect Wallet'}
-      </button>
+      <div style={{ display: 'flex', gap: mobile ? 4 : 6, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+        {WALLET_OPTIONS.map((wallet) => (
+          <button
+            key={wallet.id}
+            onClick={() => connectWallet(wallet.id)}
+            disabled={isConnecting}
+            style={isConnecting ? styles.walletBtnDisabled : styles.walletBtn}
+            onMouseEnter={(e) => {
+              if (!isConnecting) {
+                e.currentTarget.style.borderColor = '#f0b90b';
+                e.currentTarget.style.background = '#252930';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!isConnecting) {
+                e.currentTarget.style.borderColor = '#2b3139';
+                e.currentTarget.style.background = '#1e2329';
+              }
+            }}
+            title={`Connect with ${wallet.name}`}
+          >
+            <span style={styles.walletIcon}>{wallet.icon}</span>
+            {isConnecting ? 'Connecting...' : wallet.name}
+          </button>
+        ))}
+      </div>
       {error && (
         <div style={styles.errorBanner}>
           <button style={styles.errorDismiss} onClick={clearError}>&times;</button>

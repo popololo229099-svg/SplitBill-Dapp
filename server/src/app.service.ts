@@ -13,7 +13,10 @@ export class AppService {
     private prisma: PrismaService,
   ) {
     this.server = new StellarSdk.Horizon.Server(
-      this.configService.get('STELLAR_HORIZON_URL', 'https://horizon-testnet.stellar.org'),
+      this.configService.get(
+        'STELLAR_HORIZON_URL',
+        'https://horizon-testnet.stellar.org',
+      ),
     );
     this.networkPassphrase = this.configService.get(
       'STELLAR_NETWORK_PASSPHRASE',

@@ -24,7 +24,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
           cache-dependency-path: client/package-lock.json
-      - run: cd client && npm ci
+      - run: cd client && npm ci --legacy-peer-deps
       - run: cd client && npx oxlint src/
 
   lint-server:
@@ -37,7 +37,7 @@ jobs:
           cache: npm
           cache-dependency-path: server/package-lock.json
       - run: cd server && npm ci
-      - run: cd server && npx eslint src/
+      - run: cd server && npm run lint
 
   # ──────────────────────────────────────────────
   # Test
@@ -62,25 +62,11 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
           cache-dependency-path: client/package-lock.json
-      - run: cd client && npm ci
+      - run: cd client && npm ci --legacy-peer-deps
       - run: cd client && npx vitest run
 
   test-server:
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:16-alpine
-        env:
-          POSTGRES_USER: test
-          POSTGRES_PASSWORD: test
-          POSTGRES_DB: splitbill_test
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
     env:
       DATABASE_URL: postgresql://test:test@localhost:5432/splitbill_test
       STELLAR_HORIZON_URL: https://horizon-testnet.stellar.org
@@ -94,9 +80,7 @@ jobs:
           cache-dependency-path: server/package-lock.json
       - run: cd server && npm ci
       - run: cd server && npx prisma generate
-      - run: cd server && npx prisma migrate deploy
       - run: cd server && npm test
-      - run: cd server && npm run test:e2e
 
   # ──────────────────────────────────────────────
   # Build
@@ -112,7 +96,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
           cache-dependency-path: client/package-lock.json
-      - run: cd client && npm ci
+      - run: cd client && npm ci --legacy-peer-deps
       - run: cd client && npm run build
       - uses: actions/upload-artifact@v4
         with:

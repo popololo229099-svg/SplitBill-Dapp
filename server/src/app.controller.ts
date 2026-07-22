@@ -14,12 +14,17 @@ export class AppController {
   async sendXlm(
     @Body() body: { destination: string; amount: string; secretKey: string },
   ) {
-    return this.appService.sendXlm(body.destination, body.amount, body.secretKey);
+    return this.appService.sendXlm(
+      body.destination,
+      body.amount,
+      body.secretKey,
+    );
   }
 
   @Post('transactions')
   async recordTransaction(
-    @Body() body: {
+    @Body()
+    body: {
       senderAddress: string;
       recipientAddress: string;
       amount: string;

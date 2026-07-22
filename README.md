@@ -248,6 +248,24 @@ GitHub Actions with 4 stages:
 
 > **Add your screenshots to the `screenshots/` folder and update the paths above.**
 
+
+##mobile responsiveness
+
+
+<img width="702" height="1600" alt="WhatsApp Image 2026-07-22 at 1 35 13 PM" src="https://github.com/user-attachments/assets/34a16723-cabd-4a6e-8944-c77b26f9412f" />
+<img width="702" height="1600" alt="WhatsApp Image 2026-07-22 at 1 35 14 PM" src="https://github.com/user-attachments/assets/da163114-f016-4d1b-87a3-de22e01924ff" />
+
+
+
+
+
+
+
+
+
+
+
+
 ## Test Results
 
 ### Contract Tests (10/10 passing)

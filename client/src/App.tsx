@@ -4,7 +4,9 @@ import WalletConnect from './components/WalletConnect';
 import BalanceDisplay from './components/BalanceDisplay';
 import SplitBillCalculator from './components/SplitBillCalculator';
 import TransactionHistory from './components/TransactionHistory';
+import EventLog from './components/EventLog';
 import LandingPage from './components/LandingPage';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { useIsMobile } from './hooks/useMediaQuery';
 
 const C = {
@@ -20,7 +22,7 @@ const C = {
   onDark: '#ffffff',
 };
 
-type Tab = 'split' | 'history';
+type Tab = 'split' | 'history' | 'events';
 
 function AppContent() {
   const { isConnected } = useWallet();
@@ -33,6 +35,12 @@ function AppContent() {
   }
 
   const px = mobile ? '12px' : '32px';
+
+  const tabs: { id: Tab; label: string; requiresWallet: boolean }[] = [
+    { id: 'split', label: 'Split Bill', requiresWallet: false },
+    { id: 'history', label: 'History', requiresWallet: true },
+    { id: 'events', label: 'On-Chain', requiresWallet: true },
+  ];
 
   return (
     <div style={{
@@ -74,6 +82,10 @@ function AppContent() {
                   fontSize: 10, color: C.muted, marginLeft: 4,
                   background: C.surfaceCard, padding: '1px 6px', borderRadius: 2, fontWeight: 600,
                 }}>TESTNET</span>
+                <span style={{
+                  fontSize: 9, color: '#3b82f6', marginLeft: 4,
+                  background: 'rgba(59, 130, 246, 0.1)', padding: '1px 5px', borderRadius: 2, fontWeight: 600,
+                }}>CONTRACT</span>
               </>
             )}
           </div>
@@ -90,23 +102,23 @@ function AppContent() {
           maxWidth: 1280, margin: '0 auto', padding: `0 ${px}`,
           display: 'flex', gap: 0,
         }}>
-          {(['split', 'history'] as Tab[]).map((tab) => (
+          {tabs.map((tab) => (
             <div
-              key={tab}
+              key={tab.id}
               onClick={() => {
-                if (tab === 'history' && !isConnected) return;
-                setActiveTab(tab);
+                if (tab.requiresWallet && !isConnected) return;
+                setActiveTab(tab.id);
               }}
               style={{
                 padding: '12px 16px', fontSize: mobile ? 13 : 14, fontWeight: 600,
-                color: activeTab === tab ? C.primary : C.muted,
-                borderBottom: activeTab === tab ? `2px solid ${C.primary}` : '2px solid transparent',
-                cursor: tab === 'history' && !isConnected ? 'not-allowed' : 'pointer',
-                opacity: tab === 'history' && !isConnected ? 0.5 : 1,
+                color: activeTab === tab.id ? C.primary : C.muted,
+                borderBottom: activeTab === tab.id ? `2px solid ${C.primary}` : '2px solid transparent',
+                cursor: tab.requiresWallet && !isConnected ? 'not-allowed' : 'pointer',
+                opacity: tab.requiresWallet && !isConnected ? 0.5 : 1,
                 transition: 'color 0.15s, border-color 0.15s',
               }}
             >
-              {tab === 'split' ? 'Split Bill' : 'History'}
+              {tab.label}
             </div>
           ))}
         </div>
@@ -139,7 +151,7 @@ function AppContent() {
                 fontSize: 14, color: C.muted, lineHeight: 1.5,
                 maxWidth: 360, margin: '0 auto 24px',
               }}>
-                Connect your Freighter wallet to split bills and send XLM to multiple people on the Stellar testnet.
+                Connect your wallet to split bills and send XLM on Stellar testnet. Payments are recorded on-chain via smart contract.
               </p>
               <div style={{ maxWidth: 280, margin: '0 auto' }}>
                 <WalletConnect />
@@ -169,6 +181,19 @@ function AppContent() {
               padding: mobile ? 16 : 24,
             }}>
               <TransactionHistory />
+            </div>
+          )}
+
+          {isConnected && activeTab === 'events' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div style={{
+                background: C.surfaceCard,
+                border: `1px solid ${C.hairline}`,
+                borderRadius: 12,
+                padding: mobile ? 16 : 24,
+              }}>
+                <EventLog />
+              </div>
             </div>
           )}
         </div>
@@ -210,11 +235,12 @@ function AppContent() {
               <span style={{ fontSize: 12, fontWeight: 600, color: C.mutedStrong, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Product</span>
               <a href="#" onClick={(e) => { e.preventDefault(); setActiveTab('split'); }} style={{ fontSize: 13, color: C.muted, textDecoration: 'none', cursor: 'pointer' }}>Split Bill</a>
               <a href="#" onClick={(e) => { e.preventDefault(); if (isConnected) setActiveTab('history'); }} style={{ fontSize: 13, color: isConnected ? C.muted : C.mutedStrong, textDecoration: 'none', cursor: isConnected ? 'pointer' : 'default' }}>History</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); if (isConnected) setActiveTab('events'); }} style={{ fontSize: 13, color: isConnected ? C.muted : C.mutedStrong, textDecoration: 'none', cursor: isConnected ? 'pointer' : 'default' }}>On-Chain</a>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               <span style={{ fontSize: 12, fontWeight: 600, color: C.mutedStrong, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Resources</span>
               <a href="https://stellar.org" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: C.muted, textDecoration: 'none' }}>Stellar</a>
-              <a href="https://www.freighter.app/" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: C.muted, textDecoration: 'none' }}>Freighter</a>
+              <a href={`https://stellar.expert/explorer/testnet/contract/CDC2GGOQ6BATKV6GI56G3FV5GIFGTJ57IPJ6EO5KEAXBTGKXXGD66VSS`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: C.muted, textDecoration: 'none' }}>Smart Contract</a>
               <a href="https://github.com/ankitapolu/xlm-payment-dapp" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: C.muted, textDecoration: 'none' }}>GitHub</a>
             </div>
           </div>
@@ -229,7 +255,7 @@ function AppContent() {
               &copy; {new Date().getFullYear()} SplitBill &middot; Stellar Testnet
             </span>
             <span style={{ fontSize: 12, color: C.muted }}>
-              Non-custodial &middot; Open source
+              Non-custodial &middot; Open source &middot; On-chain
             </span>
           </div>
         </div>
@@ -240,8 +266,10 @@ function AppContent() {
 
 export default function App() {
   return (
-    <WalletProvider>
-      <AppContent />
-    </WalletProvider>
+    <ErrorBoundary>
+      <WalletProvider>
+        <AppContent />
+      </WalletProvider>
+    </ErrorBoundary>
   );
 }

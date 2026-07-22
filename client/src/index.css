@@ -40,3 +40,8 @@ button:not(:disabled):active {
     font-size: 16px !important;
   }
 }
+
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}

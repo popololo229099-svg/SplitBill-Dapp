@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useWallet } from '../context/WalletContext';
+import { SkeletonList } from './SkeletonLoader';
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://splitbill-h0q9.onrender.com';
 
@@ -75,12 +76,7 @@ export default function TransactionHistory() {
       </h3>
 
       {loading && (
-        <div style={{
-          background: '#1e2329', border: '1px solid #2b3139',
-          borderRadius: 8, padding: 32, textAlign: 'center',
-        }}>
-          <div style={{ fontSize: 13, color: '#707a8a' }}>Loading...</div>
-        </div>
+        <SkeletonList count={3} />
       )}
 
       {error && (

@@ -8,3 +8,5 @@ server/.agents/
 server/.claude/
 server/.windsurf/
 server/skills-lock.json
+contract/target/
+contract/Cargo.lock

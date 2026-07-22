@@ -1,37 +1,62 @@
+# SplitBill - Stellar XLM Split Payment dApp
 
+A decentralized **Split Bill Calculator** built on the **Stellar testnet** with a Binance-inspired dark theme. Connect any supported Stellar wallet, split a bill among friends, and send XLM to multiple recipients — with every payment recorded on-chain via a Soroban smart contract.
 
-A decentralized **Split Bill Calculator** built on the **Stellar testnet** with a Binance-inspired dark theme. Connect your Freighter wallet, split a bill among friends, and send XLM to multiple recipients in one seamless flow.
-
-Built for the **Stellar White Belt (Level 1)** challenge.
-
-
-
+Built for the **Stellar Belt Challenge** (Levels 1-3).
 
 <img width="1892" height="906" alt="splitbill1" src="https://github.com/user-attachments/assets/53756c47-ad50-449f-b691-298d3921a60e" />
-
 
 <img width="1863" height="906" alt="splitbill2" src="https://github.com/user-attachments/assets/5f4d5a73-a52c-43da-abe1-162d420024ae" />
 
 ## Features
 
-- Connect and disconnect Freighter wallet
+- **Multi-wallet support** via Stellar Wallets Kit (Freighter, LOBSTR, Albedo)
+- **Smart contract integration** — every split is recorded on-chain via Soroban
+- **Real-time event log** — view on-chain split records with live refresh
+- **CI/CD pipeline** — GitHub Actions with lint, test, build, and deploy stages
+- **Error boundary** — app-level crash recovery with user-friendly fallback
+- **Loading skeletons** — shimmer-based skeleton UI for balances and lists
+- **Mobile responsive** — fully responsive layout across phone, tablet, and desktop
 - Real-time XLM balance display from Stellar Horizon
 - Split bills among multiple participants
 - Send XLM transactions on the Stellar testnet
-- Per-recipient success/failure feedback with transaction hashes
+- Per-recipient transaction status tracking (building -> signing -> submitting -> recording -> success/fail)
+- 5 error types handled: wallet not found, transaction rejected, insufficient balance, account not found, timeout
 - Transaction history saved to PostgreSQL (Neon) via NestJS backend
+
 <img width="1911" height="830" alt="splitbill3" src="https://github.com/user-attachments/assets/d0d9e543-51c7-4d06-820e-a947f344ec8e" />
 
-##Sucess Transaction
+## Sucess Transaction
 
 <img width="1600" height="877" alt="successTR" src="https://github.com/user-attachments/assets/8308ce71-128a-4d33-aedb-a814bcccaabc" />
 
+## Smart Contract
+
+- **Contract Address:** `CDC2GGOQ6BATKV6GI56G3FV5GIFGTJ57IPJ6EO5KEAXBTGKXXGD66VSS`
+- **Deploy TX:** [`88d313cb...`](https://stellar.expert/explorer/testnet/tx/88d313cb28d3befcd82f50840c1e93f96ddafb7655b69823cb9205d0f15d47ed)
+- **Initialize TX:** [`762dec92...`](https://stellar.expert/explorer/testnet/tx/762dec9258511e136f111de984d858c7b455739fec717226d38f03511f8250b5)
+- **Contract Explorer:** [View on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CDC2GGOQ6BATKV6GI56G3FV5GIFGTJ57IPJ6EO5KEAXBTGKXXGD66VSS)
+
+### Functions
+
+| Function | Description |
+|----------|-------------|
+| `initialize` | Initialize the contract (called once) |
+| `record_split(sender, recipient, amount)` | Record a bill split on-chain (requires auth) |
+| `get_total_splits()` | Get total number of recorded splits |
+| `get_split(id)` | Get a specific split record |
+| `get_splits(start, limit)` | Get recent split records (paginated) |
 
 ## Tech Stack
 
-- **Frontend:** React 19, TypeScript, Vite
+- **Frontend:** React 19, TypeScript 6, Vite 8
 - **Backend:** NestJS, Prisma, PostgreSQL (Neon)
-- **Wallet:** `@stellar/freighter-api` v6, Stellar SDK
+- **Wallet:** `@creit.tech/stellar-wallets-kit` v2.5 (multi-wallet)
+- **Contract:** Soroban (Rust) deployed on Stellar Testnet
+- **SDK:** `@stellar/stellar-sdk` v16
+- **Testing:** Vitest, React Testing Library, `cargo test`
+- **Linting:** oxlint
+- **CI/CD:** GitHub Actions
 - **Network:** Stellar Testnet
 
 ## Live Deployments
@@ -43,28 +68,40 @@ Built for the **Stellar White Belt (Level 1)** challenge.
 
 ```
 xlm-payment-dapp/
-├── client/                     # React frontend
+├── .github/
+│   └── workflows/
+│       └── ci.yml                        # GitHub Actions CI/CD (lint, test, build, deploy)
+├── contract/                             # Soroban smart contract
+│   └── contracts/
+│       └── bill_splitter/
+│           └── src/
+│               ├── lib.rs            # Contract logic (record_split, get_splits)
+│               └── test.rs           # 10 unit tests with mock_auths
+├── client/                           # React frontend
 │   └── src/
 │       ├── components/
-│       │   ├── WalletConnect.tsx       # Connect/disconnect wallet
-│       │   ├── BalanceDisplay.tsx      # Show XLM balance
-│       │   ├── SplitBillCalculator.tsx # Split bill UI + send payments
-│       │   └── TransactionHistory.tsx  # View past transactions
+│       │   ├── WalletConnect.tsx      # Multi-wallet connect (StellarWalletsKit)
+│       │   ├── BalanceDisplay.tsx     # XLM balance + network badges + skeleton
+│       │   ├── SplitBillCalculator.tsx # Split bill + send + contract recording
+│       │   ├── TransactionHistory.tsx # Server-side transaction history
+│       │   ├── EventLog.tsx           # On-chain event log viewer
+│       │   ├── LandingPage.tsx        # Marketing landing page
+│       │   ├── ErrorBoundary.tsx      # App-level error boundary
+│       │   └── SkeletonLoader.tsx     # Shimmer skeleton components
+│       ├── hooks/
+│       │   └── useMediaQuery.ts       # useIsMobile, useIsTablet hooks
 │       ├── context/
-│       │   └── WalletContext.tsx       # Wallet state management
+│       │   └── WalletContext.tsx       # Wallet state + error handling
 │       └── utils/
-│           ├── freighter.ts            # Freighter wallet API helpers
-│           └── stellar.ts             # Stellar transaction building
-├── server/                     # NestJS backend
+│           ├── wallet-kit.ts          # StellarWalletsKit wrapper
+│           └── contract.ts            # Soroban contract interaction + Stellar ops
+├── server/                           # NestJS backend
 │   ├── prisma/
-│   │   └── schema.prisma              # Database schema
+│   │   └── schema.prisma             # Database schema
 │   └── src/
-│       ├── app.controller.ts          # API routes
-│       ├── app.service.ts             # Stellar + DB logic
-│       ├── app.module.ts
-│       ├── prisma.service.ts          # Prisma/Neon connection
-│       └── main.ts                    # Server entry point
-├── screenshots/                # Submission screenshots
+│       ├── app.controller.ts         # API routes
+│       ├── app.service.ts            # Stellar + DB logic
+│       └── main.ts                   # Server entry
 └── README.md
 ```
 
@@ -73,7 +110,9 @@ xlm-payment-dapp/
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) v18+
-- [Freighter Wallet](https://www.freighter.app/) browser extension
+- [Rust](https://www.rust-lang.org/tools/install) (for contract development)
+- [Stellar CLI](https://developers.stellar.org/docs/tools/developer-tools/quickstart) (`cargo install --locked stellar-cli`)
+- A Stellar wallet (Freighter, LOBSTR, or Albedo)
 - A Stellar testnet account funded via [Friendbot](https://laboratory.stellar.org/#account-creator?network=testnet)
 
 ### Run Locally
@@ -83,8 +122,7 @@ xlm-payment-dapp/
 git clone https://github.com/ankitapolu/xlm-payment-dapp.git
 cd xlm-payment-dapp
 
-# 2. Install dependencies (root + client + server)
-npm install
+# 2. Install dependencies
 cd client && npm install && cd ..
 cd server && npm install && cd ..
 
@@ -104,28 +142,66 @@ npm run dev
 - **Frontend:** http://localhost:5173
 - **Backend:** http://localhost:3000
 
-##Video Demo
+### Run Tests
 
+```bash
+# Contract tests (Rust)
+cd contract && cargo test
 
+# Frontend tests (Vitest)
+cd client && npm test
 
+# Lint
+cd client && npx oxlint src/
+```
 
+### Build the Contract (Optional)
 
+```bash
+cd contract
+stellar contract build
+stellar contract deploy \
+  --wasm target/wasm32v1-none/release/bill_splitter.wasm \
+  --source deployer \
+  --network testnet
+```
 
-
-
+## Video Demo
 
 
 ## Usage
 
-1. Install the **Freighter** wallet extension and create a testnet account
-2. Fund your account via [Stellar Friendbot](https://friendly.stellar.org/) (get 10,000 free test XLM)
-3. Open the app and click **Connect Wallet** (top right)
+1. Install a Stellar wallet extension (Freighter, LOBSTR, or Albedo)
+2. Create a testnet account and fund it via [Stellar Friendbot](https://friendly.stellar.org/)
+3. Open the app and click **Connect Wallet** (pick any supported wallet)
 4. Your wallet address and XLM balance will appear
 5. Enter the total bill amount and add participant Stellar addresses
-6. Review the summary and click **Confirm & Send**
-7. Sign each transaction in the Freighter popup
-8. View results per recipient with transaction hashes
-9. Switch to the **History** tab to see all past transactions
+6. Review the summary (including the smart contract address)
+7. Click **Confirm & Send** and sign each transaction in your wallet
+8. Watch real-time status: Building -> Sign -> Submitting -> Recording on-chain -> Success
+9. Switch to **On-Chain** tab to see all contract records with live refresh
+
+## Error Handling
+
+| Error Type | Trigger | User Message |
+|------------|---------|-------------|
+| Wallet Not Found | No wallet installed or user cancels modal | "No wallet found. Please install a Stellar wallet." |
+| Transaction Rejected | User denies signing in wallet | "Connection was rejected by the user." |
+| Insufficient Balance | Amount exceeds wallet balance | Pre-flight check blocks submission + "Insufficient balance" |
+| Account Not Found | Source account doesn't exist on testnet | Error shown with transaction details |
+| Timeout | Transaction takes too long | Error shown with transaction details |
+| Contract Error | On-chain contract call fails | Non-blocking warning (payment still succeeds) |
+
+## CI/CD Pipeline
+
+GitHub Actions with 4 stages:
+
+| Stage | Jobs | Description |
+|-------|------|-------------|
+| **lint** | `lint-client`, `lint-server` | oxlint for client, eslint for server |
+| **test** | `test-contract`, `test-client`, `test-server` | Rust unit tests, Vitest frontend tests, NestJS tests |
+| **build** | `build-client`, `build-server`, `build-contract` | Production builds with artifacts (needs lint + test to pass) |
+| **deploy** | `deploy-client`, `deploy-server` | Auto-deploy to Vercel/Render on push to master |
 
 ## API Endpoints
 
@@ -145,24 +221,25 @@ npm run dev
 | Transaction Review | ![](screenshots/transaction-review.png) |
 | Successful Transaction | ![](screenshots/transaction-success.png) |
 | Transaction History | ![](screenshots/transaction-history.png) |
+| On-Chain Event Log | ![](screenshots/event-log.png) |
 
 > **Add your screenshots to the `screenshots/` folder and update the paths above.**
 
-## Submission Checklist
+## Test Results
 
-- [x] Public GitHub repository
-- [x] README.md with project description
-- [x] Setup instructions (how to run locally)
-- [x] Wallet connect functionality
-- [x] Wallet disconnect functionality
-- [x] Fetch and display XLM balance
-- [x] Send XLM transaction on Stellar testnet
-- [x] Success/failure feedback with transaction hash
-- [ ] Screenshots added to `screenshots/` folder
-  - [ ] Wallet connected state
-  - [ ] Balance displayed
-  - [ ] Successful testnet transaction
-  - [ ] Transaction result shown to user
+### Contract Tests (10/10 passing)
+```
+test result: ok. 10 passed; 0 failed; 0 ignored
+```
+
+### Frontend Tests (15/15 passing)
+```
+Test Files  3 passed (3)
+     Tests  15 passed (15)
+```
+- `WalletConnect.test.tsx` — 6 tests (connect, disconnect, states, errors)
+- `contract.test.ts` — 2 tests (buildPaymentTransaction, buildRecordSplitTx)
+- `useMediaQuery.test.ts` — 7 tests (useMediaQuery, useIsMobile, useIsTablet)
 
 ## License
 

@@ -1,24 +1,26 @@
 import { useWallet } from '../context/WalletContext';
+import { useIsMobile } from '../hooks/useMediaQuery';
 
 export default function WalletConnect() {
-  const { address, isConnecting, isInstalled, error, connect, disconnect } = useWallet();
+  const { address, isConnecting, error, connect, disconnect, clearError } = useWallet();
+  const mobile = useIsMobile();
 
   const styles = {
     container: {
       display: 'flex',
       alignItems: 'center',
-      gap: 8,
+      gap: mobile ? 6 : 8,
     } as React.CSSProperties,
     connectedBtn: {
       display: 'flex',
       alignItems: 'center',
-      gap: 8,
+      gap: 6,
       background: '#1e2329',
       border: '1px solid #2b3139',
       borderRadius: 6,
-      padding: '7px 12px',
+      padding: mobile ? '6px 8px' : '7px 12px',
       cursor: 'default',
-      fontSize: 13,
+      fontSize: mobile ? 12 : 13,
     } as React.CSSProperties,
     dot: {
       width: 6,
@@ -32,50 +34,61 @@ export default function WalletConnect() {
       border: '1px solid #474d57',
       borderRadius: 6,
       color: '#eaecef',
-      padding: '7px 12px',
+      padding: mobile ? '6px 8px' : '7px 12px',
       cursor: 'pointer',
-      fontSize: 13,
+      fontSize: mobile ? 12 : 13,
     } as React.CSSProperties,
     connectBtn: {
       background: '#f0b90b',
       border: 'none',
       borderRadius: 6,
       color: '#0b0e11',
-      padding: '8px 20px',
+      padding: mobile ? '7px 14px' : '8px 20px',
       cursor: 'pointer',
-      fontSize: 14,
+      fontSize: mobile ? 13 : 14,
       fontWeight: 600,
       transition: 'background 0.15s',
+      whiteSpace: 'nowrap' as const,
     } as React.CSSProperties,
     connectBtnDisabled: {
       background: '#474d57',
       border: 'none',
       borderRadius: 6,
       color: '#707a8a',
-      padding: '8px 20px',
+      padding: mobile ? '7px 14px' : '8px 20px',
       cursor: 'not-allowed',
-      fontSize: 14,
+      fontSize: mobile ? 13 : 14,
       fontWeight: 600,
     } as React.CSSProperties,
-    warning: {
-      background: '#1e1a2a',
-      border: '1px solid #f0b90b',
+    errorBanner: {
+      background: 'rgba(246, 70, 93, 0.1)',
+      border: '1px solid #f6465d',
       borderRadius: 6,
       padding: '8px 12px',
       fontSize: 12,
-      color: '#f0b90b',
-      lineHeight: 1.4,
-    } as React.CSSProperties,
-    error: {
       color: '#f6465d',
-      fontSize: 12,
-      marginTop: 6,
+      lineHeight: 1.4,
+      maxWidth: mobile ? 200 : 300,
     } as React.CSSProperties,
-    link: {
-      color: '#f0b90b',
-      fontWeight: 600,
-      textDecoration: 'underline',
+    errorDismiss: {
+      background: 'none',
+      border: 'none',
+      color: '#f6465d',
       cursor: 'pointer',
+      fontSize: 14,
+      padding: 0,
+      marginLeft: 6,
+      float: 'right',
+      lineHeight: 1,
+    } as React.CSSProperties,
+    walletBadge: {
+      fontSize: 9,
+      color: '#707a8a',
+      background: '#2b3139',
+      padding: '1px 4px',
+      borderRadius: 3,
+      marginLeft: 2,
+      display: mobile ? 'none' : 'inline',
     } as React.CSSProperties,
   };
 
@@ -84,10 +97,11 @@ export default function WalletConnect() {
       <div style={styles.container}>
         <div style={styles.connectedBtn}>
           <div style={styles.dot} />
-          <span>{address.slice(0, 6)}...{address.slice(-4)}</span>
+          <span>{address.slice(0, mobile ? 4 : 6)}...{address.slice(-4)}</span>
+          <span style={styles.walletBadge}>Multi-Wallet</span>
         </div>
         <button style={styles.disconnectBtn} onClick={disconnect}>
-          Disconnect
+          {mobile ? '×' : 'Disconnect'}
         </button>
       </div>
     );
@@ -95,25 +109,29 @@ export default function WalletConnect() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'flex-end' }}>
-      {!isInstalled && (
-        <div style={styles.warning}>
-          Install <a href="https://www.freighter.app/" target="_blank" style={styles.link}>Freighter</a> to continue
-        </div>
-      )}
       <button
         onClick={connect}
-        disabled={isConnecting || !isInstalled}
-        style={isInstalled && !isConnecting ? styles.connectBtn : styles.connectBtnDisabled}
+        disabled={isConnecting}
+        style={!isConnecting ? styles.connectBtn : styles.connectBtnDisabled}
         onMouseEnter={(e) => {
-          if (isInstalled && !isConnecting) e.currentTarget.style.background = '#e0a800';
+          if (!isConnecting) e.currentTarget.style.background = '#e0a800';
         }}
         onMouseLeave={(e) => {
-          if (isInstalled && !isConnecting) e.currentTarget.style.background = '#f0b90b';
+          if (!isConnecting) e.currentTarget.style.background = '#f0b90b';
         }}
       >
-        {isConnecting ? 'Connecting...' : 'Connect Wallet'}
+        {isConnecting ? 'Connecting...' : mobile ? 'Connect' : 'Connect Wallet'}
       </button>
-      {error && <div style={styles.error}>{error}</div>}
+      {error && (
+        <div style={styles.errorBanner}>
+          <button style={styles.errorDismiss} onClick={clearError}>&times;</button>
+          <strong>{error.type === 'wallet_not_found' ? 'Wallet Not Found' :
+            error.type === 'transaction_rejected' ? 'Rejected' :
+            error.type === 'insufficient_balance' ? 'Insufficient Balance' :
+            'Connection Error'}</strong>
+          <div style={{ marginTop: 2 }}>{error.message}</div>
+        </div>
+      )}
     </div>
   );
 }

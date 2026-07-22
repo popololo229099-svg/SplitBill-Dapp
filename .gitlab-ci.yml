@@ -1,0 +1,179 @@
+stages:
+  - lint
+  - test
+  - build
+  - deploy
+
+variables:
+  NODE_VERSION: "20"
+  RUST_VERSION: "1.83"
+
+# ──────────────────────────────────────────────
+# Lint Stage
+# ──────────────────────────────────────────────
+
+lint:client:
+  stage: lint
+  image: node:${NODE_VERSION}
+  script:
+    - cd client
+    - npm ci
+    - npm run lint
+  rules:
+    - if: '$CI_MERGE_REQUEST_IID'
+    - if: '$CI_COMMIT_BRANCH == "master"'
+
+lint:server:
+  stage: lint
+  image: node:${NODE_VERSION}
+  script:
+    - cd server
+    - npm ci
+    - npx eslint src/
+  rules:
+    - if: '$CI_MERGE_REQUEST_IID'
+    - if: '$CI_COMMIT_BRANCH == "master"'
+
+# ──────────────────────────────────────────────
+# Test Stage
+# ──────────────────────────────────────────────
+
+test:contract:
+  stage: test
+  image: rust:${RUST_VERSION}
+  before_script:
+    - rustup target add wasm32v1-none
+    - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    - export PATH="$HOME/.cargo/bin:$PATH"
+  script:
+    - cd contract
+    - cargo test
+    - cargo build --target wasm32v1-none --release
+  rules:
+    - if: '$CI_MERGE_REQUEST_IID'
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  artifacts:
+    when: always
+    reports:
+      junit: contract/target/test-results.xml
+    paths:
+      - contract/target/wasm32v1-none/release/*.wasm
+
+test:client:
+  stage: test
+  image: node:${NODE_VERSION}
+  script:
+    - cd client
+    - npm ci
+    - npm run lint
+    - npm run test
+  rules:
+    - if: '$CI_MERGE_REQUEST_IID'
+    - if: '$CI_COMMIT_BRANCH == "master"'
+
+test:server:
+  stage: test
+  image: node:${NODE_VERSION}
+  services:
+    - postgres:16-alpine
+  variables:
+    POSTGRES_USER: test
+    POSTGRES_PASSWORD: test
+    POSTGRES_DB: splitbill_test
+    DATABASE_URL: "postgresql://test:test@postgres:5432/splitbill_test"
+    STELLAR_HORIZON_URL: "https://horizon-testnet.stellar.org"
+    STELLAR_NETWORK_PASSPHRASE: "Test SDF Network ; September 2015"
+  script:
+    - cd server
+    - npm ci
+    - npx prisma generate
+    - npx prisma migrate deploy
+    - npm test
+    - npm run test:e2e
+  rules:
+    - if: '$CI_MERGE_REQUEST_IID'
+    - if: '$CI_COMMIT_BRANCH == "master"'
+
+# ──────────────────────────────────────────────
+# Build Stage
+# ──────────────────────────────────────────────
+
+build:client:
+  stage: build
+  image: node:${NODE_VERSION}
+  script:
+    - cd client
+    - npm ci
+    - npm run build
+  artifacts:
+    paths:
+      - client/dist/
+    expire_in: 1 week
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+
+build:server:
+  stage: build
+  image: node:${NODE_VERSION}
+  script:
+    - cd server
+    - npm ci
+    - npx prisma generate
+    - npx nest build
+  artifacts:
+    paths:
+      - server/dist/
+    expire_in: 1 week
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+
+build:contract:
+  stage: build
+  image: rust:${RUST_VERSION}
+  before_script:
+    - rustup target add wasm32v1-none
+    - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    - export PATH="$HOME/.cargo/bin:$PATH"
+  script:
+    - cd contract
+    - cargo build --target wasm32v1-none --release
+  artifacts:
+    paths:
+      - contract/target/wasm32v1-none/release/*.wasm
+    expire_in: 1 week
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+
+# ──────────────────────────────────────────────
+# Deploy Stage (Manual)
+# ──────────────────────────────────────────────
+
+deploy:client:
+  stage: deploy
+  image: node:${NODE_VERSION}
+  dependencies:
+    - build:client
+  script:
+    - cd client
+    - npm ci
+    - npx vercel --prod --token $VERCEL_TOKEN
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: manual
+  environment:
+    name: production
+    url: https://xlm-payment-dapp.vercel.app
+
+deploy:server:
+  stage: deploy
+  image: node:${NODE_VERSION}
+  dependencies:
+    - build:server
+  script:
+    - echo "Deploy server to Render via webhook or CLI"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: manual
+  environment:
+    name: production
+    url: https://splitbill-h0q9.onrender.com

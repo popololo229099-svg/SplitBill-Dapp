@@ -1,0 +1,22 @@
+client/src/components/WalletConnect.test.tsx
+  s_03d6f487a48d42::t_1ca33c5fe3913a 4
+client/src/utils/wallet-kit.ts
+  s_03d6f487a48d42::t_e39c27c33572fc 73,75
+  s_03d6f487a48d42::t_3664ec31f04c35 2,6,14,33,41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "d33d998a76fd670edd227e6c094f1d18602225f6",
+  "prompts": {},
+  "sessions": {
+    "s_03d6f487a48d42": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0793ed5aaffem8l2THMu28yDMI",
+        "model": "unknown"
+      },
+      "human_author": "ankitapolu <ankita.polu@example.com>"
+    }
+  }
+}

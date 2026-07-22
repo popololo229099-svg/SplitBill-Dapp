@@ -247,6 +247,7 @@ GitHub Actions with 4 stages:
 | On-Chain Event Log | ![](screenshots/event-log.png) |
 
 > **Add your screenshots to the `screenshots/` folder and update the paths above.**
+<img width="1890" height="830" alt="image" src="https://github.com/user-attachments/assets/f4d8da32-cb9c-4076-8509-4ec658f8a5f8" />
 
 
 ##mobile responsiveness

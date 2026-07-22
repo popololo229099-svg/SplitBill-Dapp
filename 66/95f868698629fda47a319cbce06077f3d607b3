@@ -1,0 +1,46 @@
+server/src/app.service.ts
+  s_03d6f487a48d42::t_b079ed760a3804 16-19
+server/src/app.controller.ts
+  s_03d6f487a48d42::t_b079ed760a3804 17-21,26-27
+client/src/utils/wallet-kit.ts
+  s_03d6f487a48d42::t_1521ec0bae9af2 9-14,55-59
+  s_03d6f487a48d42::t_fc79fa47f8f585 60-61
+server/src/app.controller.spec.ts
+  s_03d6f487a48d42::t_dba602071050af 5,12
+  s_03d6f487a48d42::t_757330874a6ed5 6-11
+  s_03d6f487a48d42::t_837f333c4a6535 17,21-22,34
+  s_03d6f487a48d42::t_b6c5588720d2c3 18-20,25
+  s_03d6f487a48d42::t_dfedad74c47b5e 31-33
+client/src/components/WalletConnect.test.tsx
+  s_03d6f487a48d42::t_ec09460c9a6e67 31,39,46-48,51-54,56-58,62,69-70,73-76,81,84,91-92,95-98,104,106,113-114,117-129,131-136,141,143-144,151-171,185
+  s_03d6f487a48d42::t_0916c7a0f326bf 11-22
+.github/workflows/ci.yml
+  s_03d6f487a48d42::t_bfcfc2130494f0 27,40,65,99
+server/src/prisma.service.ts
+  s_03d6f487a48d42::t_b079ed760a3804 6-9,11-13
+server/src/main.ts
+  s_03d6f487a48d42::t_b079ed760a3804 6-7
+  s_03d6f487a48d42::t_85df43f1331b3b 8
+  s_03d6f487a48d42::t_895d16141187ed 9-11
+client/src/components/WalletConnect.tsx
+  s_03d6f487a48d42::t_919ee2214490c9 3,6,42-44,46-47,49-54,57-59,61-62,64-73,124-149
+client/src/context/WalletContext.tsx
+  s_03d6f487a48d42::t_326c08eb52dca9 2
+  s_03d6f487a48d42::t_d639f744b4a10b 19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "6695f868698629fda47a319cbce06077f3d607b3",
+  "prompts": {},
+  "sessions": {
+    "s_03d6f487a48d42": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0793ed5aaffem8l2THMu28yDMI",
+        "model": "unknown"
+      },
+      "human_author": "ankitapolu <ankita.polu@example.com>"
+    }
+  }
+}

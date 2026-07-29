@@ -1,0 +1,22 @@
+client/src/utils/contract.ts
+  s_6e1af839acf489::t_747dbbc852a8b2 6
+README.md
+  s_6e1af839acf489::t_67c847635c630a 35-38
+  s_6e1af839acf489::t_102ade60af602a 129
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "1955520bb11973430cae99a3aa15f99ba4b5cf7c",
+  "prompts": {},
+  "sessions": {
+    "s_6e1af839acf489": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_051589376ffe45FkyZexgIdDbF",
+        "model": "unknown"
+      },
+      "human_author": "ankitapolu <poulumidui@gmail.com>"
+    }
+  }
+}

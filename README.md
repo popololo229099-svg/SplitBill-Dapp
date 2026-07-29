@@ -240,7 +240,8 @@ GitHub Actions with 4 stages:
 ```
 test result: ok. 10 passed; 0 failed; 0 ignored
 ```
-<img width="1866" height="911" alt="image" src="https://github.com/user-attachments/assets/d7715aba-a0ae-45ad-8e66-66051ffbef7d" />
+<img width="1833" height="702" alt="image" src="https://github.com/user-attachments/assets/2ad0a5d0-2310-4e9b-b870-9fc84c9dddb5" />
+
 
 ### Frontend Tests (15/15 passing)
 ```

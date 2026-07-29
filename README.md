@@ -36,6 +36,7 @@ Built for the **Stellar Belt Challenge** (Levels 1-3).
 - **Deploy TX:** [`b665442b...`](https://stellar.expert/explorer/testnet/tx/b665442bbb0c66133ba2b33d0efeb934148b08f28186eb4cace296a38e9296a4)
 - **Initialize TX:** [`92eb0577...`](https://stellar.expert/explorer/testnet/tx/92eb0577ac2dcc65034eeb31e4e544b9fcb380b7bf86a7834219e146b27693ed)
 - **Contract Explorer:** [View on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CBPZMTQ46FGY32Q3WPSORPIAW46Q2BLP5WAU2TJCSDQCOSR4TN5XFG62)
+- **Deployer Wallet:** `GB64XRJ67HMLI7RBB5PIUFBF2I7WZYSOENM2QCYX4YRV3PO2PYUSPOTY`
 
 ### Functions
 
@@ -47,12 +48,10 @@ Built for the **Stellar Belt Challenge** (Levels 1-3).
 | `get_split(id)` | Get a specific split record |
 | `get_splits(start, limit)` | Get recent split records (paginated) |
 
+## Live Deployments
 
-##Frontend deployed link - > https://xlm-payment-dapp.vercel.app
-
-##Backend deployed link - > https://splitbill-h0q9.onrender.com
-
-
+- **Frontend:** https://xlm-payment-dapp.vercel.app
+- **Backend:** https://splitbill-h0q9.onrender.com
 
 ## Tech Stack
 
@@ -66,15 +65,10 @@ Built for the **Stellar Belt Challenge** (Levels 1-3).
 - **CI/CD:** GitHub Actions
 - **Network:** Stellar Testnet
 
-## Live Deployments
-
-- **Frontend:** https://xlm-payment-dapp.vercel.app
-- **Backend:** https://splitbill-h0q9.onrender.com
-
 ## Project Structure
 
 ```
-xlm-payment-dapp/
+SplitBill-Dapp/
 ├── .github/
 │   └── workflows/
 │       └── ci.yml                        # GitHub Actions CI/CD (lint, test, build, deploy)
@@ -127,7 +121,7 @@ xlm-payment-dapp/
 ```bash
 # 1. Clone the repository
 git clone https://github.com/popololo229099-svg/SplitBill-Dapp.git
-cd xlm-payment-dapp
+cd SplitBill-Dapp
 
 # 2. Install dependencies
 cd client && npm install && cd ..
@@ -135,7 +129,7 @@ cd server && npm install && cd ..
 
 # 3. Set up environment variables
 cd server
-cp .env.example .env    # or create .env with:
+# Create .env with:
 # STELLAR_HORIZON_URL=https://horizon-testnet.stellar.org
 # STELLAR_NETWORK_PASSPHRASE=Test SDF Network ; September 2015
 # PORT=3000
@@ -169,28 +163,13 @@ cd contract
 stellar contract build
 stellar contract deploy \
   --wasm target/wasm32v1-none/release/bill_splitter.wasm \
-  --source deployer \
+  --source <your-secret-key> \
   --network testnet
 ```
 
 ## Video Demo
 
-
-
-
-
-
-
-
-
-
 https://github.com/user-attachments/assets/d1b9b803-f561-40bc-8ceb-eafdf2ec638d
-
-
-
-
-
-
 
 ## Usage
 
@@ -249,29 +228,13 @@ GitHub Actions with 4 stages:
 > **Add your screenshots to the `screenshots/` folder and update the paths above.**
 <img width="1890" height="830" alt="image" src="https://github.com/user-attachments/assets/f4d8da32-cb9c-4076-8509-4ec658f8a5f8" />
 
-
-##mobile responsiveness
-
+## Mobile Responsiveness
 
 <img width="702" height="1600" alt="WhatsApp Image 2026-07-22 at 1 35 13 PM" src="https://github.com/user-attachments/assets/34a16723-cabd-4a6e-8944-c77b26f9412f" />
 <img width="702" height="1600" alt="WhatsApp Image 2026-07-22 at 1 35 14 PM" src="https://github.com/user-attachments/assets/da163114-f016-4d1b-87a3-de22e01924ff" />
 
-
-
-
-
-
-
-
-
-
-
-
 ## Test Results
 <img width="1907" height="885" alt="image" src="https://github.com/user-attachments/assets/516cffac-3c3c-4257-9bf6-22e4d0afc9c6" />
-
-
-
 
 ### Contract Tests (10/10 passing)
 ```

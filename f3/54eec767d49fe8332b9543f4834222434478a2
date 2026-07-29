@@ -1,0 +1,19 @@
+README.md
+  s_6e1af839acf489::t_10deae808956b1 39,51,53-54,71,124,132,166,231
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "f354eec767d49fe8332b9543f4834222434478a2",
+  "prompts": {},
+  "sessions": {
+    "s_6e1af839acf489": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_051589376ffe45FkyZexgIdDbF",
+        "model": "unknown"
+      },
+      "human_author": "popololo229099-svg <popololo229099@gmail.com>"
+    }
+  }
+}

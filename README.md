@@ -32,10 +32,10 @@ Built for the **Stellar Belt Challenge** (Levels 1-3).
 
 ## Smart Contract
 
-- **Contract Address:** `CDC2GGOQ6BATKV6GI56G3FV5GIFGTJ57IPJ6EO5KEAXBTGKXXGD66VSS`
-- **Deploy TX:** [`88d313cb...`](https://stellar.expert/explorer/testnet/tx/88d313cb28d3befcd82f50840c1e93f96ddafb7655b69823cb9205d0f15d47ed)
-- **Initialize TX:** [`762dec92...`](https://stellar.expert/explorer/testnet/tx/762dec9258511e136f111de984d858c7b455739fec717226d38f03511f8250b5)
-- **Contract Explorer:** [View on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CDC2GGOQ6BATKV6GI56G3FV5GIFGTJ57IPJ6EO5KEAXBTGKXXGD66VSS)
+- **Contract Address:** `CBPZMTQ46FGY32Q3WPSORPIAW46Q2BLP5WAU2TJCSDQCOSR4TN5XFG62`
+- **Deploy TX:** [`b665442b...`](https://stellar.expert/explorer/testnet/tx/b665442bbb0c66133ba2b33d0efeb934148b08f28186eb4cace296a38e9296a4)
+- **Initialize TX:** [`92eb0577...`](https://stellar.expert/explorer/testnet/tx/92eb0577ac2dcc65034eeb31e4e544b9fcb380b7bf86a7834219e146b27693ed)
+- **Contract Explorer:** [View on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CBPZMTQ46FGY32Q3WPSORPIAW46Q2BLP5WAU2TJCSDQCOSR4TN5XFG62)
 
 ### Functions
 
@@ -126,7 +126,7 @@ xlm-payment-dapp/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/ankitapolu/xlm-payment-dapp.git
+git clone https://github.com/popololo229099-svg/SplitBill-Dapp.git
 cd xlm-payment-dapp
 
 # 2. Install dependencies

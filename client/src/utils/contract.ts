@@ -3,7 +3,7 @@ import * as StellarSdk from '@stellar/stellar-sdk';
 const TESTNET_PASSPHRASE = 'Test SDF Network ; September 2015';
 const HORIZON_URL = 'https://horizon-testnet.stellar.org';
 const RPC_URL = 'https://soroban-testnet.stellar.org';
-const CONTRACT_ADDRESS = 'CDC2GGOQ6BATKV6GI56G3FV5GIFGTJ57IPJ6EO5KEAXBTGKXXGD66VSS';
+const CONTRACT_ADDRESS = 'CBPZMTQ46FGY32Q3WPSORPIAW46Q2BLP5WAU2TJCSDQCOSR4TN5XFG62';
 
 const server = new StellarSdk.Horizon.Server(HORIZON_URL);
 const rpc = new StellarSdk.rpc.Server(RPC_URL);

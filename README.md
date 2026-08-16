@@ -332,6 +332,11 @@ Users who onboarded and tested the dApp on the Stellar testnet. Every entry belo
 | 60 | 16/08/2026 13:13:35 | Pooja Grover | `GBED6IC5O5CRNDVI5B6NOI7K4H6ZGED3ZF5X3QZON4SULR5XTG5FUTNM` | `6b5c1452347b31208db3ca40d4e289adb98d55dd7a005d46a3c2475b72017390` | 5 |
 
 ## Analytics
+<img width="1522" height="846" alt="split bill analitcs" src="https://github.com/user-attachments/assets/d306e30f-c487-4138-99dc-9b31abf2dda9" />
+
+
+
+<img width="1575" height="772" alt="ana123" src="https://github.com/user-attachments/assets/8e06e5e4-373d-4e6a-a49a-af81d507250b" />
 
 This project uses **Mixpanel** (`mixpanel-browser`) for product analytics, tracked client-side. The stable user identity is the connected Stellar wallet address — it is passed to `mixpanel.identify()` after a successful wallet connect and `mixpanel.reset()` on disconnect.
 

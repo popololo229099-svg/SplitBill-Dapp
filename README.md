@@ -156,13 +156,16 @@ A **Kotlin + Jetpack Compose** native Android app in [`kotlin-app/`](./kotlin-ap
 - Per-recipient status tracking: `building → signing → submitting → recording → success/fail`
 - 5 error types classified: insufficient balance, transaction rejected, account not found, timeout, unknown
 - Every payment is **recorded on-chain** via the Soroban `record_split` contract call (non-blocking)
-- Live balance display from Stellar Horizon with automatic refresh
+- Live XLM balance card from Stellar Horizon — refreshed on wallet connect, app launch, and restore
+- One-tap disconnect from the app header wipes the key from secure storage
 
 ### History & On-Chain Data
 
-- Transaction history persisted via the NestJS backend (`POST/GET /api/transactions`) with pull-to-refresh
-- **On-Chain event log** streaming from Soroban RPC (`get_splits`, `get_total_splits`) with live auto-refresh
+- Transaction history persisted via the NestJS backend (`POST/GET /api/transactions`), loaded on screen open with a Refresh button
+- Each row shows amount, recipient, status pill, transaction hash, and date
+- **On-Chain event log** streaming from Soroban RPC (`get_splits`, `get_total_splits`) with automatic refresh every 30s plus a manual Refresh button
 - Contract address and total on-chain split counter always visible
+- Bottom navigation bar with three tabs — **Split Bill**, **History**, and **On-Chain** — plus error banners for network/backend failures
 
 ### Screens
 
@@ -198,6 +201,8 @@ cd kotlin-app
 ## Features
 
 - **Multi-wallet support** via Stellar Wallets Kit (Freighter, LOBSTR, Albedo)
+- **Native Android app** (`kotlin-app/`) — Kotlin + Jetpack Compose with an on-device self-custody wallet, bill splitting, history, and a live on-chain event log
+- **React Native mobile app** (`mobile/`) — Expo companion app with keys secured in the device secure enclave (iOS Keychain / Android Keystore)
 - **Smart contract integration** — every split is recorded on-chain via Soroban
 - **Real-time event log** — view on-chain split records with live refresh
 - **CI/CD pipeline** — GitHub Actions with lint, test, build, and deploy stages

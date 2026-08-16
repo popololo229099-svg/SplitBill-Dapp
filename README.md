@@ -344,6 +344,8 @@ This project uses **Mixpanel** (`mixpanel-browser`) for product analytics, track
 
 The Mixpanel project token is read from `VITE_MIXPANEL_TOKEN` (with a fallback in `client/src/lib/mixpanel.ts`). See `AGENTS.md` before adding or modifying any tracking.
 
+**Vercel Analytics** (`@vercel/analytics/react`) is also enabled at the app root for page views and web vitals — it complements Mixpanel, which remains the source of truth for product/behavioral events.
+
 ## License
 
 MIT

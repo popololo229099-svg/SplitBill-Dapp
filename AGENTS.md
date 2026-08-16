@@ -1,6 +1,6 @@
 # Analytics Tracking — Mixpanel
 
-This project uses **Mixpanel** for all product analytics. Mixpanel is the single source of truth for event tracking, user identification, and behavioral data. Do not introduce any other analytics tools, SDKs, or tracking libraries without explicit instruction from a user.
+This project uses **Mixpanel** for all product analytics. Mixpanel is the single source of truth for event tracking, user identification, and behavioral data. **Vercel Analytics** (`@vercel/analytics/react`) is also enabled for infrastructure-level web vitals and page views (see "Vercel Analytics" below). Do not introduce any other analytics tools, SDKs, or tracking libraries without explicit instruction from a user.
 
 ---
 
@@ -124,3 +124,15 @@ track('[event_name]', {
 - **Do not hardcode the Mixpanel project token** — read it from environment config.
 - **Do not skip `mixpanel.reset()` on logout** — failing to reset causes Mixpanel to merge the next user's events with the previous user's profile.
 - **Do not call `mixpanel.identify()` before the user is authenticated** — premature identification creates orphaned Mixpanel profiles.
+
+---
+
+## Vercel Analytics
+
+Vercel Analytics tracks **page views and web vitals** at the infrastructure level. It is intentionally separate from Mixpanel: Mixpanel captures user *actions*, Vercel Analytics captures *traffic and performance*.
+
+**File:** `client/src/main.tsx` — `<Analytics />` from `@vercel/analytics/react` is rendered once at the app root.
+
+- Do not use Vercel Analytics for behavioral/event tracking — that stays in Mixpanel.
+- Do not add Speed Insights or other Vercel packages without explicit instruction.
+- Data is only captured on Vercel deployments (the `@vercel/analytics` script loads against the deployment environment).

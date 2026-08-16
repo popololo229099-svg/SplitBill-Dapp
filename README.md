@@ -351,6 +351,76 @@ The Mixpanel project token is read from `VITE_MIXPANEL_TOKEN` (with a fallback i
 
 **Vercel Analytics** (`@vercel/analytics/react`) is also enabled at the app root for page views and web vitals — it complements Mixpanel, which remains the source of truth for product/behavioral events.
 
+## Presentation
+
+Ready-to-use prompts for generating a presentation about SplitBill. Paste into Gamma, ChatGPT, Claude, or any AI presentation tool.
+
+### Full Deck (10–12 slides)
+
+> Create a clean, modern investor/product presentation (10-12 slides, dark theme to match the product) for **SplitBill**, a decentralized bill-splitting dApp built on the Stellar blockchain. Use the following verified facts about the product:
+>
+> **Product:** SplitBill — a decentralized Split Bill Calculator on the Stellar testnet. Users connect a Stellar wallet, enter a total bill amount, add multiple recipient addresses, and send XLM to everyone in one flow — with every payment recorded on-chain via a Soroban smart contract. Binance-inspired dark theme, fully mobile responsive.
+>
+> **Key features:**
+> - Multi-wallet support via Stellar Wallets Kit (Freighter, LOBSTR, Albedo)
+> - Per-recipient transaction status tracking (building → signing → submitting → recording → success/fail)
+> - Smart contract integration — every split recorded on-chain (record_split, get_splits, get_total_splits functions)
+> - 5 error types handled: wallet not found, transaction rejected, insufficient balance, account not found, timeout
+> - Real-time XLM balance display from Stellar Horizon
+> - On-chain event log viewer with live refresh
+> - Transaction history persisted to PostgreSQL (Neon) via NestJS backend
+> - Error boundary + loading skeletons for production polish
+>
+> **Tech stack:** React 19 + TypeScript + Vite 8 (frontend), NestJS + Prisma + PostgreSQL/Neon (backend), Soroban smart contract in Rust, Stellar SDK v16, CI/CD with GitHub Actions (lint → test → build → auto-deploy to Vercel/Render), testing via Vitest + React Testing Library + cargo test (10 contract tests, 17 frontend tests).
+>
+> **Analytics:** Mixpanel for behavioral events (wallet_connected, bill_split_initiated, bill_split_completed, bill_split_failed) + Vercel Analytics for page views and web vitals.
+>
+> **Live deployments:** Frontend at https://xlm-payment-dapp.vercel.app, backend at https://splitbill-h0q9.onrender.com, contract live on Stellar testnet with 60+ verified on-chain user transactions.
+>
+> **Slide outline to generate:**
+> 1. Title slide — SplitBill: Split bills on Stellar with one click
+> 2. Problem — splitting payments across wallets is manual, slow, and error-prone
+> 3. Solution — one connected wallet, N recipients, all payments recorded on-chain
+> 4. How it works — numbered flow (connect → enter bill → review → sign → recorded on smart contract)
+> 5. Smart contract — Soroban, key functions, on-chain transparency
+> 6. User experience — demo highlights, per-recipient status, dark theme, mobile
+> 7. Architecture — React frontend / NestJS backend / Soroban contract / Neon DB diagram
+> 8. Reliability — 5 error types, error boundary, CI/CD pipeline, 27 passing tests
+> 9. Analytics — how we measure activation and completion
+> 10. Roadmap — mainnet launch, settlement currency support, recurring splits, mobile apps
+> 11. Ask — partnership, testnet onboarding, or funding
+>
+> Keep every claim grounded in the facts above — do not invent features. Target audience: investors and technical reviewers.
+
+### Short Pitch Deck (5–6 slides)
+
+> Create a punchy 5-6 slide pitch deck for **SplitBill**, a decentralized bill-splitting dApp on the Stellar blockchain. Dark theme.
+>
+> 1. Hook — "Splitting a bill with friends should take one click, not five wallets."
+> 2. Product — Connect any Stellar wallet, enter the total, add recipients, send XLM to everyone at once — every payment recorded on-chain via a Soroban smart contract.
+> 3. Proof — Live on testnet: https://xlm-payment-dapp.vercel.app, 60+ verified on-chain user transactions, 10 contract + 17 frontend tests passing, CI/CD auto-deploy.
+> 4. Architecture — React 19 frontend, NestJS + PostgreSQL (Neon) backend, Rust Soroban contract, Stellar SDK v16.
+> 5. Analytics — Mixpanel tracks activation (wallet_connected) and completion (bill_split_completed); Vercel Analytics for traffic and web vitals.
+> 6. Ask — Testnet beta users, then mainnet launch + funding.
+>
+> One line per slide maximum for text. No invented claims.
+
+### Speaker Notes Companion
+
+> Generate concise speaker notes for each slide of the SplitBill deck. Keep each note under 60 words and conversational.
+>
+> - **Title:** "I'm building SplitBill — a dApp that lets anyone split a bill on Stellar with one connected wallet. Every payment lands on-chain, so the whole split is transparent and auditable."
+> - **Problem:** "Today, splitting a bill means juggling multiple wallets, copy-pasting addresses, and tracking who paid. It's manual, slow, and easy to get wrong."
+> - **Solution:** "SplitBill fixes that: connect once, enter the total, add recipient addresses, and send XLM to everyone in a single flow — with per-recipient status updates the whole time."
+> - **How it works:** "Connect → enter bill → review the summary → sign each payment → the smart contract records the split. You see building, signing, submitting, recording, then success for every recipient."
+> - **Smart contract:** "A Soroban contract on Stellar testnet stores every split permanently. Anyone can query it — get_splits, get_total_splits — so the record is public and verifiable."
+> - **User experience:** "Clean Binance-style dark theme, fully responsive on mobile, with real-time XLM balances and an on-chain event log."
+> - **Architecture:** "React 19 frontend talking to a NestJS backend backed by PostgreSQL on Neon, with the Rust Soroban contract handling on-chain state."
+> - **Reliability:** "We handle 5 failure modes gracefully, ship behind a CI/CD pipeline that lints, tests, and auto-deploys, and keep 27 tests green across contract and frontend."
+> - **Analytics:** "Mixpanel tells us when users activate and when splits complete, so we can improve the funnel. Vercel Analytics covers traffic and performance."
+> - **Roadmap:** "Next: mainnet, support for settled tokens beyond XLM, recurring bill splits, and native mobile."
+> - **Ask:** "We're looking for testnet users now and partnership or funding to take SplitBill to mainnet."
+
 ## License
 
 MIT

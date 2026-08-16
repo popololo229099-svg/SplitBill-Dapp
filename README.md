@@ -4,6 +4,55 @@ A decentralized **Split Bill Calculator** built on the **Stellar testnet** with 
 
 Built for the **Stellar Belt Challenge** (Levels 1-3).
 
+## Tech Stack
+
+### Web App
+
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
+[![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Vitest](https://img.shields.io/badge/Vitest-FCC72B?style=flat-square&logo=vitest&logoColor=black)](https://vitest.dev)
+[![Stellar SDK](https://img.shields.io/badge/Stellar_SDK-16-09090B?style=flat-square&logo=stellar&logoColor=white)](https://developers.stellar.org)
+[![Mixpanel](https://img.shields.io/badge/Analytics-Mixpanel-7856FF?style=flat-square&logo=mixpanel&logoColor=white)](https://mixpanel.com)
+
+### Smart Contract
+
+[![Rust](https://img.shields.io/badge/Rust-000000?style=flat-square&logo=rust&logoColor=white)](https://www.rust-lang.org)
+[![Soroban](https://img.shields.io/badge/Soroban_Smart_Contracts-2E5A87?style=flat-square&logo=stellar&logoColor=white)](https://soroban.stellar.org)
+[![Stellar](https://img.shields.io/badge/Stellar-Testnet-09090B?style=flat-square&logo=stellar&logoColor=white)](https://stellar.org)
+
+### Backend
+
+[![NestJS](https://img.shields.io/badge/NestJS-11-E0234E?style=flat-square&logo=nestjs&logoColor=white)](https://nestjs.com)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)](https://nodejs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org)
+[![Prisma](https://img.shields.io/badge/Prisma-7-2D3748?style=flat-square&logo=prisma&logoColor=white)](https://www.prisma.io)
+[![Jest](https://img.shields.io/badge/Jest-C21325?style=flat-square&logo=jest&logoColor=white)](https://jestjs.io)
+
+### Mobile App
+
+[![React Native](https://img.shields.io/badge/React_Native-0.86-61DAFB?style=flat-square&logo=react&logoColor=black)](https://reactnative.dev)
+[![Expo](https://img.shields.io/badge/Expo_SDK-57-000020?style=flat-square&logo=expo&logoColor=white)](https://docs.expo.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Stellar SDK](https://img.shields.io/badge/Stellar_SDK-16-09090B?style=flat-square&logo=stellar&logoColor=white)](https://developers.stellar.org)
+[![SecureStore](https://img.shields.io/badge/Secure_Storage-Keychain%2FKeystore-2E7D32?style=flat-square&logo=lock&logoColor=white)](https://docs.expo.dev/versions/v57.0.0/sdk/securestore/)
+
+### Native Android App
+
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.2-7F52FF?style=flat-square&logo=kotlin&logoColor=white)](https://kotlinlang.org)
+[![Jetpack Compose](https://img.shields.io/badge/Jetpack_Compose-4285F4?style=flat-square&logo=jetpackcompose&logoColor=white)](https://developer.android.com/jetpack/compose)
+[![Material 3](https://img.shields.io/badge/Material_3-757575?style=flat-square&logo=materialdesign&logoColor=white)](https://m3.material.io)
+[![Android](https://img.shields.io/badge/Android-SDK_36-3DDC84?style=flat-square&logo=android&logoColor=white)](https://developer.android.com)
+[![Gradle](https://img.shields.io/badge/Gradle-8.14-02303A?style=flat-square&logo=gradle&logoColor=white)](https://gradle.org)
+[![Stellar SDK](https://img.shields.io/badge/Stellar_SDK_KMP-1.11-09090B?style=flat-square&logo=stellar&logoColor=white)](https://github.com/Soneso/kmp-stellar-sdk)
+
+### DevOps & Infra
+
+[![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white)](https://vercel.com)
+[![Render](https://img.shields.io/badge/Render-46E3B7?style=flat-square&logo=render&logoColor=black)](https://render.com)
+[![GitHub Actions](https://img.shields.io/badge/CI_CD-GitHub_Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white)](https://github.com/features/actions)
+
 <img width="1892" height="906" alt="splitbill1" src="https://github.com/user-attachments/assets/53756c47-ad50-449f-b691-298d3921a60e" />
 
 <img width="1863" height="906" alt="splitbill2" src="https://github.com/user-attachments/assets/5f4d5a73-a52c-43da-abe1-162d420024ae" />

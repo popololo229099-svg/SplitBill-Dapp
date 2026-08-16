@@ -3,6 +3,7 @@ import { useWallet } from '../context/WalletContext';
 import { buildPaymentTransaction, buildRecordSplitTx, submitSignedTransaction, CONTRACT_ADDRESS } from '../utils/contract';
 import { signTransactionWithKit } from '../utils/wallet-kit';
 import { useIsMobile } from '../hooks/useMediaQuery';
+import { track } from '../lib/mixpanel';
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://splitbill-h0q9.onrender.com';
 
@@ -71,6 +72,11 @@ export default function SplitBillCalculator() {
   }
 
   function goToReview() {
+    track('bill_split_initiated', {
+      total_amount: totalAsNumber,
+      recipient_count: validParticipants.length,
+      split_amount: parseFloat(splitAmount),
+    });
     setActiveView('review');
   }
 
@@ -88,6 +94,9 @@ export default function SplitBillCalculator() {
       phase: 'building' as TxPhase,
     }));
     setTransactions(recipients);
+
+    let succeededCount = 0;
+    let failedCount = 0;
 
     for (let i = 0; i < recipients.length; i++) {
       try {
@@ -121,6 +130,8 @@ export default function SplitBillCalculator() {
 
         setPhase(i, 'success');
 
+        succeededCount++;
+
         saveTransaction({
           senderAddress: walletAddress!,
           recipientAddress: recipients[i].address,
@@ -144,6 +155,8 @@ export default function SplitBillCalculator() {
 
         setErrorAndPhase(i, msg, errorType);
 
+        failedCount++;
+
         saveTransaction({
           senderAddress: walletAddress!,
           recipientAddress: recipients[i].address,
@@ -151,6 +164,18 @@ export default function SplitBillCalculator() {
           status: 'failed',
         });
       }
+    }
+
+    const resultProps = {
+      total_amount: totalAsNumber,
+      recipient_count: recipients.length,
+      succeeded_count: succeededCount,
+    };
+
+    if (failedCount === 0) {
+      track('bill_split_completed', resultProps);
+    } else {
+      track('bill_split_failed', { ...resultProps, failed_count: failedCount });
     }
 
     setActiveView('result');

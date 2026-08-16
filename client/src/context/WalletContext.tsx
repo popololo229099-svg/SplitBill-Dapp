@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
 import { openAuthModal, connectSpecificWallet, getAddressFromKit, disconnectKit, initWalletKit } from '../utils/wallet-kit';
 import { fetchBalance } from '../utils/contract';
+import { identifyUser, resetUser, track } from '../lib/mixpanel';
 
 export type ErrorType = 'wallet_not_found' | 'transaction_rejected' | 'insufficient_balance' | 'connection_failed' | 'unknown';
 
@@ -40,6 +41,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     getAddressFromKit().then((key) => {
       if (key) {
         setAddress(key);
+        identifyUser(key);
         fetchBalance(key).then(setBalance).catch(() => {});
       }
     }).catch(() => {});
@@ -61,6 +63,8 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     try {
       const addr = await openAuthModal();
       setAddress(addr);
+      identifyUser(addr);
+      track('wallet_connected');
       const bal = await fetchBalance(addr);
       setBalance(bal);
     } catch (e: any) {
@@ -85,6 +89,8 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     try {
       const addr = await connectSpecificWallet(walletId);
       setAddress(addr);
+      identifyUser(addr);
+      track('wallet_connected', { wallet_id: walletId });
       const bal = await fetchBalance(addr);
       setBalance(bal);
     } catch (e: any) {
@@ -102,6 +108,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
 
   const disconnect = useCallback(async () => {
     await disconnectKit();
+    resetUser();
     setAddress(null);
     setBalance(null);
     setError(null);

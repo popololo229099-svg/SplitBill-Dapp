@@ -14,12 +14,61 @@ Built for the **Stellar Belt Challenge** (Levels 1-3).
 
 ## Mobile App
 
-A **React Native (Expo) mobile app** lives in [`mobile/`](./mobile) — the same SplitBill experience for phones, with a self-custody wallet built in.
+A **React Native (Expo)** companion app in [`mobile/`](./mobile) brings the full SplitBill experience to iOS and Android, with a **self-custody wallet built in** — keys are generated and signed entirely on-device.
 
-- **Expo SDK 57** + TypeScript, dark Binance-inspired theme
-- **Self-custody wallet** — generate or import a Stellar keypair, stored encrypted in the device secure enclave (`expo-secure-store`). Keys never leave the phone.
-- Full dApp parity: split bill calculator, send XLM to multiple recipients, per-recipient status tracking, on-chain event log, and transaction history
-- Mixpanel tracking over the HTTP Tracking API (same events as web) + `EXPO_PUBLIC_*` env config
+[![Expo](https://img.shields.io/badge/Expo_SDK-57-000020?style=flat-square&logo=expo&logoColor=white)](https://docs.expo.dev)
+[![React Native](https://img.shields.io/badge/React_Native-0.86-61DAFB?style=flat-square&logo=react&logoColor=black)](https://reactnative.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Stellar](https://img.shields.io/badge/Stellar-Testnet-09090B?style=flat-square&logo=stellar&logoColor=white)](https://stellar.org)
+[![SecureStore](https://img.shields.io/badge/Secure_Storage-Keychain%2FKeystore-2E7D32?style=flat-square&logo=lock&logoColor=white)](https://docs.expo.dev/versions/v57.0.0/sdk/securestore/)
+[![Mixpanel](https://img.shields.io/badge/Analytics-Mixpanel-7856FF?style=flat-square&logo=mixpanel&logoColor=white)](https://mixpanel.com)
+
+### Self-Custody Wallet
+
+- Generate a new **Stellar keypair** or **import an existing secret key** (S...)
+- Keys are stored **encrypted** in the device secure enclave via `expo-secure-store` (iOS Keychain / Android Keystore)
+- **Keys never leave the phone** — transactions are built and signed locally with `@stellar/stellar-sdk`
+- Restore-on-launch: reopening the app reconnects the stored wallet automatically
+- One-tap disconnect deletes the key from secure storage
+
+### Bill Splitting
+
+- Split a bill among 2+ recipients with automatic per-person amount calculation
+- Review & confirm screen: total, recipient count, per-recipient share, network badge, and smart contract address
+- Send XLM to all recipients in one flow — fully **non-custodial**, signed on-device
+- Per-recipient status tracking: `building → signing → submitting → recording → success/fail`
+- 5 error types classified: insufficient balance, transaction rejected, account not found, timeout, unknown
+- Every payment is **recorded on-chain** via the Soroban `record_split` contract call (non-blocking)
+- Live balance display from Stellar Horizon with automatic refresh every 30s
+
+### History & On-Chain Data
+
+- Transaction history persisted via the NestJS backend (`POST/GET /api/transactions`) with pull-to-refresh
+- Filtered to your wallet — sent and received payments with date, status, and tx hash
+- **On-Chain event log** streaming from Soroban RPC (`get_splits`, `get_total_splits`) with a live 15s auto-refresh
+- Contract address and total on-chain split counter always visible
+
+### Screens
+
+| Screen | Purpose |
+|--------|---------|
+| Landing | App intro, wallet create / import, balance summary |
+| Split Bill | Total amount, participant list, review & confirm, live send status |
+| History | Saved transactions filtered by wallet |
+| On-Chain | Soroban event log with recent split records |
+
+### Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Expo SDK 57, React Native 0.86, TypeScript (strict) |
+| Blockchain | `@stellar/stellar-sdk` v16, Stellar Horizon + Soroban RPC (testnet) |
+| Secure storage | `expo-secure-store` (iOS Keychain / Android Keystore) |
+| Clipboard | `expo-clipboard` (paste secret keys) |
+| Analytics | Mixpanel HTTP Tracking API (`EXPO_PUBLIC_MIXPANEL_TOKEN`) |
+| Backend | NestJS + PostgreSQL (Neon) at `EXPO_PUBLIC_API_URL` |
+
+### Run It
 
 ```sh
 cd mobile
@@ -28,6 +77,8 @@ npm start          # open in Expo Go on your device
 npm run typecheck  # TypeScript check
 npm run build      # export production Android JS bundle
 ```
+
+Optional env overrides in `mobile/.env` (see `mobile/.env.example`): `EXPO_PUBLIC_MIXPANEL_TOKEN`, `EXPO_PUBLIC_API_URL`.
 
 ## Features
 

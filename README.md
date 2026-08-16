@@ -8,6 +8,10 @@ Built for the **Stellar Belt Challenge** (Levels 1-3).
 
 <img width="1863" height="906" alt="splitbill2" src="https://github.com/user-attachments/assets/5f4d5a73-a52c-43da-abe1-162d420024ae" />
 
+## Pitch Deck
+
+[![Pitch Deck](https://img.shields.io/badge/View_Pitch_Deck-Gamma-blue?style=for-the-badge&logo=notion)](https://gamma.app/docs/SplitBill-4urt4pbzhg8q1y7?mode=doc)
+
 ## Features
 
 - **Multi-wallet support** via Stellar Wallets Kit (Freighter, LOBSTR, Albedo)

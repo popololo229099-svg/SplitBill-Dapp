@@ -12,6 +12,23 @@ Built for the **Stellar Belt Challenge** (Levels 1-3).
 
 [![Pitch Deck](https://img.shields.io/badge/View_Pitch_Deck-Gamma-blue?style=for-the-badge&logo=notion)](https://gamma.app/docs/SplitBill-4urt4pbzhg8q1y7?mode=doc)
 
+## Mobile App
+
+A **React Native (Expo) mobile app** lives in [`mobile/`](./mobile) — the same SplitBill experience for phones, with a self-custody wallet built in.
+
+- **Expo SDK 57** + TypeScript, dark Binance-inspired theme
+- **Self-custody wallet** — generate or import a Stellar keypair, stored encrypted in the device secure enclave (`expo-secure-store`). Keys never leave the phone.
+- Full dApp parity: split bill calculator, send XLM to multiple recipients, per-recipient status tracking, on-chain event log, and transaction history
+- Mixpanel tracking over the HTTP Tracking API (same events as web) + `EXPO_PUBLIC_*` env config
+
+```sh
+cd mobile
+npm install
+npm start          # open in Expo Go on your device
+npm run typecheck  # TypeScript check
+npm run build      # export production Android JS bundle
+```
+
 ## Features
 
 - **Multi-wallet support** via Stellar Wallets Kit (Freighter, LOBSTR, Albedo)

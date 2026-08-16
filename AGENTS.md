@@ -45,6 +45,11 @@ Mixpanel is initialized in:
 // Mixpanel instances or call mixpanel.init() elsewhere.
 ```
 
+**Mobile app (`mobile/`):** `mixpanel-browser` cannot run in React Native. The mobile app uses the
+Mixpanel **HTTP Tracking API** (`POST https://api.mixpanel.com/track`) with the same events and
+identity rules (Stellar public key, reset on disconnect). See `mobile/AGENTS.md` for details. Do not
+add a second analytics SDK on mobile.
+
 **Do not:**
 - Initialize Mixpanel in multiple places
 - Create separate Mixpanel instances per component or module

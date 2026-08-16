@@ -65,6 +65,19 @@ jobs:
       - run: cd client && npm ci --legacy-peer-deps
       - run: cd client && npx vitest run
 
+  test-mobile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
+      - run: cd mobile && npm ci
+      - run: cd mobile && npx tsc --noEmit
+      - run: cd mobile && npx expo export --platform android
+
   test-server:
     runs-on: ubuntu-latest
     env:

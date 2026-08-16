@@ -80,6 +80,72 @@ npm run build      # export production Android JS bundle
 
 Optional env overrides in `mobile/.env` (see `mobile/.env.example`): `EXPO_PUBLIC_MIXPANEL_TOKEN`, `EXPO_PUBLIC_API_URL`.
 
+## Native Android App
+
+A **Kotlin + Jetpack Compose** native Android app in [`kotlin-app/`](./kotlin-app) — the full SplitBill experience built with modern Android tooling and the official **Stellar Kotlin Multiplatform SDK**. Same self-custody model as mobile: keys are generated and signed entirely on-device.
+
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.2-7F52FF?style=flat-square&logo=kotlin&logoColor=white)](https://kotlinlang.org)
+[![Jetpack Compose](https://img.shields.io/badge/Jetpack_Compose-4285F4?style=flat-square&logo=jetpackcompose&logoColor=white)](https://developer.android.com/jetpack/compose)
+[![MVVM](https://img.shields.io/badge/Architecture-MVVM-8BC34A?style=flat-square&logo=android&logoColor=white)](https://developer.android.com/topic/architecture)
+[![Stellar](https://img.shields.io/badge/Stellar-Testnet-09090B?style=flat-square&logo=stellar&logoColor=white)](https://stellar.org)
+[![Android Keystore](https://img.shields.io/badge/Secure_Storage-Android_Keystore-2E7D32?style=flat-square&logo=lock&logoColor=white)](https://developer.android.com/privacy-and-security/keystore)
+[![Mixpanel](https://img.shields.io/badge/Analytics-Mixpanel-7856FF?style=flat-square&logo=mixpanel&logoColor=white)](https://mixpanel.com)
+
+### Self-Custody Wallet
+
+- Generate a new **Stellar keypair** or **import an existing secret key** (S...) on first launch
+- Secret seeds are stored **encrypted at rest** with `androidx.security.crypto` (EncryptedSharedPreferences backed by the **Android Keystore**)
+- **Keys never leave the device** — transactions are built and signed locally with `com.soneso.stellar:stellar-sdk` (KMP)
+- Restore-on-launch: reopening the app reconnects the stored wallet automatically
+- One-tap disconnect wipes the key from secure storage
+
+### Bill Splitting
+
+- Split a bill among 2+ recipients with automatic per-person amount calculation
+- Review & confirm screen: total, recipient count, per-recipient share, network badge, and smart contract address
+- Send XLM to all recipients in one flow — fully **non-custodial**, signed on-device
+- Per-recipient status tracking: `building → signing → submitting → recording → success/fail`
+- 5 error types classified: insufficient balance, transaction rejected, account not found, timeout, unknown
+- Every payment is **recorded on-chain** via the Soroban `record_split` contract call (non-blocking)
+- Live balance display from Stellar Horizon with automatic refresh
+
+### History & On-Chain Data
+
+- Transaction history persisted via the NestJS backend (`POST/GET /api/transactions`) with pull-to-refresh
+- **On-Chain event log** streaming from Soroban RPC (`get_splits`, `get_total_splits`) with live auto-refresh
+- Contract address and total on-chain split counter always visible
+
+### Screens
+
+| Screen | Purpose |
+|--------|---------|
+| Landing | App intro, wallet create / import, balance summary |
+| Split Bill | Total amount, participant list, review & confirm, live send status |
+| History | Saved transactions filtered by wallet |
+| On-Chain | Soroban event log with recent split records |
+
+### Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Language | Kotlin 2.2, Jetpack Compose (Material 3), MVVM + coroutines |
+| Blockchain | `com.soneso.stellar:stellar-sdk` v1.11 (KMP), Stellar Horizon + Soroban RPC (testnet) |
+| Secure storage | `androidx.security.crypto` + Android Keystore (AES-256-GCM) |
+| Networking | Retrofit + OkHttp + Gson (backend REST API) |
+| Navigation | `androidx.navigation` Compose (bottom tab bar) |
+| Analytics | Mixpanel Android SDK (`MIXPANEL_TOKEN`) |
+| Backend | NestJS + PostgreSQL (Neon) at `API_BASE_URL` |
+
+### Run It
+
+```sh
+cd kotlin-app
+./gradlew assembleDebug   # builds app-debug.apk
+./gradlew installDebug    # installs on a connected device/emulator
+```
+
+> Requires JDK 17+, Android SDK (API 36), and Gradle 8.14+. Build the APK and open `app/build/outputs/apk/debug/app-debug.apk` on any Android 7.0+ device.
+
 ## Features
 
 - **Multi-wallet support** via Stellar Wallets Kit (Freighter, LOBSTR, Albedo)
@@ -143,19 +209,29 @@ Optional env overrides in `mobile/.env` (see `mobile/.env.example`): `EXPO_PUBLI
 SplitBill-Dapp/
 ├── .github/
 │   └── workflows/
-│       └── ci.yml                        # GitHub Actions CI/CD (lint, test, build, deploy)
-├── contract/                             # Soroban smart contract
+│       └── ci.yml                     # CI/CD: lint + test + build + Vercel deploy
+├── AGENTS.md                          # Mixpanel analytics tracking plan
+├── DESIGN.md                          # Binance-inspired design system tokens
+├── package.json                       # Root workspace scripts
+├── contract/                          # Soroban smart contract (Rust)
+│   ├── Cargo.toml
 │   └── contracts/
 │       └── bill_splitter/
+│           ├── Cargo.toml
+│           ├── Makefile
 │           └── src/
-│               ├── lib.rs            # Contract logic (record_split, get_splits)
-│               └── test.rs           # 10 unit tests with mock_auths
-├── client/                           # React frontend
+│               ├── lib.rs             # initialize, record_split, get_splits, get_total_splits
+│               └── test.rs            # 10 unit tests (test_snapshots/)
+├── client/                            # Web frontend (React 19 + Vite + TypeScript)
+│   ├── index.html
+│   ├── vite.config.ts
 │   └── src/
+│       ├── main.tsx                   # App entry + Vercel Analytics
+│       ├── App.tsx                    # Landing, tabs, layout
 │       ├── components/
 │       │   ├── WalletConnect.tsx      # Multi-wallet connect (StellarWalletsKit)
 │       │   ├── BalanceDisplay.tsx     # XLM balance + network badges + skeleton
-│       │   ├── SplitBillCalculator.tsx # Split bill + send + contract recording
+│       │   ├── SplitBillCalculator.tsx# Split bill + send + contract recording
 │       │   ├── TransactionHistory.tsx # Server-side transaction history
 │       │   ├── EventLog.tsx           # On-chain event log viewer
 │       │   ├── LandingPage.tsx        # Marketing landing page
@@ -164,17 +240,61 @@ SplitBill-Dapp/
 │       ├── hooks/
 │       │   └── useMediaQuery.ts       # useIsMobile, useIsTablet hooks
 │       ├── context/
-│       │   └── WalletContext.tsx       # Wallet state + error handling
-│       └── utils/
-│           ├── wallet-kit.ts          # StellarWalletsKit wrapper
-│           └── contract.ts            # Soroban contract interaction + Stellar ops
-├── server/                           # NestJS backend
+│       │   └── WalletContext.tsx      # Wallet state + error handling + analytics
+│       ├── lib/
+│       │   └── mixpanel.ts            # Mixpanel wrapper (track/identify/reset)
+│       ├── utils/
+│       │   ├── wallet-kit.ts          # StellarWalletsKit wrapper
+│       │   └── contract.ts            # Soroban contract + Horizon interaction
+│       └── test/
+│           └── setup.ts               # Vitest test setup
+├── server/                            # NestJS backend (TypeScript + Prisma)
+│   ├── nest-cli.json
 │   ├── prisma/
-│   │   └── schema.prisma             # Database schema
+│   │   └── schema.prisma              # Database schema
 │   └── src/
-│       ├── app.controller.ts         # API routes
-│       ├── app.service.ts            # Stellar + DB logic
-│       └── main.ts                   # Server entry
+│       ├── main.ts                    # Server entry
+│       ├── app.module.ts              # Root module
+│       ├── app.controller.ts          # REST API (/api/transactions, /api/status)
+│       ├── app.service.ts             # Stellar + DB logic
+│       └── prisma.service.ts          # Prisma client
+├── mobile/                            # React Native mobile app (Expo SDK 57)
+│   ├── App.tsx                        # Root: wallet provider + tab navigation
+│   ├── index.ts                       # Entry (polyfills + registerRootComponent)
+│   ├── app.json                       # Expo config
+│   ├── assets/
+│   └── src/
+│       ├── theme.ts                   # Design tokens (Binance palette)
+│       ├── polyfills.ts               # Buffer/crypto polyfills for Stellar SDK
+│       ├── context/
+│       │   └── WalletContext.tsx      # Self-custody wallet state
+│       ├── lib/
+│       │   ├── wallet.ts              # Keypair generate/import + SecureStore
+│       │   ├── stellar.ts             # Horizon/RPC/contract helpers
+│       │   ├── api.ts                 # Backend REST client
+│       │   └── mixpanel.ts            # Mixpanel HTTP Tracking API
+│       ├── components/
+│       │   └── ui.tsx                 # Shared Button/Card/Field/Badge
+│       └── screens/
+│           ├── LandingScreen.tsx      # Intro + wallet create/import
+│           ├── SplitBillScreen.tsx    # Split flow (setup/review/send/result)
+│           ├── HistoryScreen.tsx      # Transaction history
+│           └── EventLogScreen.tsx     # On-chain event log
+├── kotlin-app/                        # Native Android app (Kotlin + Jetpack Compose)
+│   ├── settings.gradle.kts            # Gradle settings + plugin management
+│   ├── build.gradle.kts               # Root build config
+│   ├── gradle/libs.versions.toml      # Version catalog
+│   └── app/
+│       ├── build.gradle.kts           # App module (Compose + Material 3)
+│       └── src/main/
+│           ├── AndroidManifest.xml
+│           └── java/com/splitbill/android/
+│               ├── MainActivity.kt    # Single-activity Compose entry
+│               ├── ui/theme/          # Binance-inspired design tokens
+│               ├── ui/components/     # Shared Button/Card/Field/Badge
+│               ├── ui/screens/        # Landing/Split/History/Event log
+│               ├── viewmodel/         # Wallet/Split/History/Event ViewModels
+│               └── data/              # Keystore wallet, Stellar SDK, Retrofit client
 └── README.md
 ```
 
